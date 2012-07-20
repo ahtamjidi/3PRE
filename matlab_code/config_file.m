@@ -8,7 +8,7 @@ global myCONFIG
 
 % /media/FreeAgentGoFlexDrive/SOONHAC/square_1000/KeyFrames
 % myCONFIG.PATH.DATA_FOLDER = '/home/axtamjidi/SR4000/eitlog/';
-myCONFIG.PATH.DATA_FOLDER = 'D:\AMIR\AMIR\second_floor_150_square\KeyFrames\';
+myCONFIG.PATH.DATA_FOLDER = 'C:\Users\lab\Desktop\AMIR\ICRA\bus';
 % myCONFIG.PATH.DATA_FOLDER = '/home/axtamjidi/SR4000/square/';
 
 
