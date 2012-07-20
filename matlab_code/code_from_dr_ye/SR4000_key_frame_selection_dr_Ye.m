@@ -163,210 +163,212 @@ for i=idxRange(1):idxRange(2)
     else
         %% calculate RANSAC
         %%% (calculates the RANSAC result between the latest keyframe and the current keyframe)
-        try
-            [dX_gt,dq_calc,R_RANSAC,State_RANSAC,RANSAC_STAT]=Calculate_V_Omega_RANSAC_dr_ye(idx_key_frame_in_source,i);
-            STACKED_nFeatures1(i) = RANSAC_STAT.nFeatures1; %%%
-            STACKED_nF1_Confidence_Filtered(i) = RANSAC_STAT.nF1_Confidence_Filtered; %%%
-            STACKED_nFeatures2(i) = RANSAC_STAT.nFeatures2; %%%
-            STACKED_nF2_Confidence_Filtered(i) = RANSAC_STAT.nF2_Confidence_Filtered; %%%
-            STACKED_nMatches(i) = RANSAC_STAT.nMatches; %%%
-            STACKED_nIterationRansac(i) = RANSAC_STAT.nIterationRansac; %%%
-            STACKED_InlierRatio(i) = RANSAC_STAT.InlierRatio; %%%
-            STACKED_nSupport(i) = RANSAC_STAT.nSupport; %%%
-            STACKED_T_RANSAC(:,i) = dX_gt;
-            STACKED_q_RANSAC(:,i) = dq_calc;
-            STACKED_ErrorMean(:,i) = RANSAC_STAT.ErrorMean;
-            STACKED_ErrorStd(:,i) = RANSAC_STAT.ErrorStd;
-            STACKED_RANSAC_STATE(i) = RANSAC_STAT.SolutionState;
+        if mod(i,2)==0
+            try
+                [dX_gt,dq_calc,R_RANSAC,State_RANSAC,RANSAC_STAT]=Calculate_V_Omega_RANSAC_dr_ye(idx_key_frame_in_source,i);
+                STACKED_nFeatures1(i) = RANSAC_STAT.nFeatures1; %%%
+                STACKED_nF1_Confidence_Filtered(i) = RANSAC_STAT.nF1_Confidence_Filtered; %%%
+                STACKED_nFeatures2(i) = RANSAC_STAT.nFeatures2; %%%
+                STACKED_nF2_Confidence_Filtered(i) = RANSAC_STAT.nF2_Confidence_Filtered; %%%
+                STACKED_nMatches(i) = RANSAC_STAT.nMatches; %%%
+                STACKED_nIterationRansac(i) = RANSAC_STAT.nIterationRansac; %%%
+                STACKED_InlierRatio(i) = RANSAC_STAT.InlierRatio; %%%
+                STACKED_nSupport(i) = RANSAC_STAT.nSupport; %%%
+                STACKED_T_RANSAC(:,i) = dX_gt;
+                STACKED_q_RANSAC(:,i) = dq_calc;
+                STACKED_ErrorMean(:,i) = RANSAC_STAT.ErrorMean;
+                STACKED_ErrorStd(:,i) = RANSAC_STAT.ErrorStd;
+                STACKED_RANSAC_STATE(i) = RANSAC_STAT.SolutionState;
+                
+                T_RANSAC = dX_gt;
+                %             State_RANSAC = RANSAC_CALC_SAVE_SR4000(idx_key_frame_in_source,i);
+                cprintf('-magenta',['steps : [',num2str(idx_key_frame_in_source),' ',num2str(i),']\n' ]);
+                cprintf('magenta','-----------------------------------\n' )
+            catch
+                cprintf('-red','RANSAC is not working\n'); %%% in case that RANSAC fail for any reason for example not enough number of features
+                %             disp('RANSAC is not working') %%% in case that RANSAC fail for any reason for example not enough number of features
+                cprintf('red','--------------------------------\n')
+                cprintf('red','--------------------------------\n')
+                continue
+            end
+            %% Load the results
             
-            T_RANSAC = dX_gt;
-            %             State_RANSAC = RANSAC_CALC_SAVE_SR4000(idx_key_frame_in_source,i);
-            cprintf('-magenta',['steps : [',num2str(idx_key_frame_in_source),' ',num2str(i),']\n' ]);
-            cprintf('magenta','-----------------------------------\n' )
-        catch
-            cprintf('-red','RANSAC is not working\n'); %%% in case that RANSAC fail for any reason for example not enough number of features
-            %             disp('RANSAC is not working') %%% in case that RANSAC fail for any reason for example not enough number of features
-            cprintf('red','--------------------------------\n')
-            cprintf('red','--------------------------------\n')
-            continue
-        end
-        %% Load the results
-        
-        RANSAC_file_in_source = sprintf('%s/RANSAC_pose_shift_dr_Ye/RANSAC_RESULT_%d_%d.mat',source_folder,idx_key_frame_in_source,i);
-        %         load(RANSAC_file_in_source)
-        %         %% copy the result into KeyFrame directory and remove it from source directory
-        
-        %%% display the results
-        euler_rot = R2e(R_RANSAC);
-        [a_rot,u_rot]=q2au(R2q(R_RANSAC));
-        cprintf(['euler angle (deg)= [',num2str(180*euler_rot(1)/pi),...
-            ' ',num2str(180*euler_rot(2)/pi),' ',...
-            num2str(180*euler_rot(3)/pi),']\n '])
-        
-        cprintf(['T (m) = [',num2str(T_RANSAC(1)),...
-            ' ',num2str(T_RANSAC(2)),' ',...
-            num2str(T_RANSAC(3)),']\n '])
-        
-        cprintf(['norm T = ',num2str(norm(T_RANSAC)),']\n '])
-        cprintf(['norm Angle (deg) = ',num2str(180*a_rot(1)/pi),']\n '])
-        
-        %         disp(['euler angle (deg) and norm T= [',num2str(180*euler_rot(1)/pi),...
-        %             ' ',num2str(180*euler_rot(2)/pi),' ',...
-        %             num2str(180*euler_rot(3)/pi),' T = ',num2str(norm(T_RANSAC)),'] '])
-        %         disp(['a_rot angle (deg) = [',num2str(180*a_rot(1)/pi),'] '])
-        
-        
-        %%% if the rotation and tranlation are not big enough or the RANSAC
-        %%% result is not acceptqable, discard the frame and delte the
-        %%% calculated RANSAC rfesults
-        %         combination_rot_trans =  180*a_rot/pi + norm(T_RANSAC)*100;
-        
-        %% key Frame selection criteria
-        KeyFrameFlag = 0;
-        
-        
-        %% FOR GENERAL MOTINO
-                if 180*a_rot/pi>3
-                    KeyFrameFlag = 1;
-                elseif norm(T_RANSAC)*100>4
-                    KeyFrameFlag = 1;
+            RANSAC_file_in_source = sprintf('%s/RANSAC_pose_shift_dr_Ye/RANSAC_RESULT_%d_%d.mat',source_folder,idx_key_frame_in_source,i);
+            %         load(RANSAC_file_in_source)
+            %         %% copy the result into KeyFrame directory and remove it from source directory
+            
+            %%% display the results
+            euler_rot = R2e(R_RANSAC);
+            [a_rot,u_rot]=q2au(R2q(R_RANSAC));
+            cprintf(['euler angle (deg)= [',num2str(180*euler_rot(1)/pi),...
+                ' ',num2str(180*euler_rot(2)/pi),' ',...
+                num2str(180*euler_rot(3)/pi),']\n '])
+            
+            cprintf(['T (m) = [',num2str(T_RANSAC(1)),...
+                ' ',num2str(T_RANSAC(2)),' ',...
+                num2str(T_RANSAC(3)),']\n '])
+            
+            cprintf(['norm T = ',num2str(norm(T_RANSAC)),']\n '])
+            cprintf(['norm Angle (deg) = ',num2str(180*a_rot(1)/pi),']\n '])
+            
+            %         disp(['euler angle (deg) and norm T= [',num2str(180*euler_rot(1)/pi),...
+            %             ' ',num2str(180*euler_rot(2)/pi),' ',...
+            %             num2str(180*euler_rot(3)/pi),' T = ',num2str(norm(T_RANSAC)),'] '])
+            %         disp(['a_rot angle (deg) = [',num2str(180*a_rot(1)/pi),'] '])
+            
+            
+            %%% if the rotation and tranlation are not big enough or the RANSAC
+            %%% result is not acceptqable, discard the frame and delte the
+            %%% calculated RANSAC rfesults
+            %         combination_rot_trans =  180*a_rot/pi + norm(T_RANSAC)*100;
+            
+            %% key Frame selection criteria
+            KeyFrameFlag = 1;
+            
+            
+            %% FOR GENERAL MOTINO
+%             if 180*a_rot/pi>3
+%                 KeyFrameFlag = 1;
+%             elseif norm(T_RANSAC)*100>4
+%                 KeyFrameFlag = 1;
+%             end
+            
+            %% FOR LINEAR MOTINO
+            %         if norm(T_RANSAC)*100>50
+            %             KeyFrameFlag = 1;
+            %         end
+            %         if i==idxRange(2)
+            %             KeyFrameFlag = 1;
+            %         end
+            
+            % %% FOR ROTATION
+            %         if 180*a_rot/pi>9
+            %             KeyFrameFlag = 1;
+            %         end
+            %         if i==idxRange(2)
+            %             KeyFrameFlag = 1;
+            %         end
+            
+            
+            
+            
+            
+            
+            %         (a_rot<4*pi/180 && norm(T_RANSAC)<0.05)
+            if ~KeyFrameFlag || (State_RANSAC~=1 || abs(abs(det(R_RANSAC))-1)>0.1)
+                %         disp('rotation exceeded 3 degees')
+                disp(['data ',num2str(i),' is not acceptable\n'])
+                delete(RANSAC_file_in_source);
+                cprintf('red', '------------------------------------------\n');
+                if State_RANSAC~=1
+                    index_color(1,i) = 2; %%% red
+                else
+                    index_color(1,i) = 4; %%% blue
                 end
-        
-%% FOR LINEAR MOTINO
-%         if norm(T_RANSAC)*100>50
-%             KeyFrameFlag = 1;
-%         end
-%         if i==idxRange(2)
-%             KeyFrameFlag = 1;
-%         end
-
-% %% FOR ROTATION
-%         if 180*a_rot/pi>9
-%             KeyFrameFlag = 1;
-%         end
-%         if i==idxRange(2)
-%             KeyFrameFlag = 1;
-%         end
-
-
-
-
-
-        
-        %         (a_rot<4*pi/180 && norm(T_RANSAC)<0.05)
-        if ~KeyFrameFlag || (State_RANSAC~=1 || abs(abs(det(R_RANSAC))-1)>0.1)
-            %         disp('rotation exceeded 3 degees')
-            disp(['data ',num2str(i),' is not acceptable\n'])
-            delete(RANSAC_file_in_source);
-            cprintf('red', '------------------------------------------\n');
-            if State_RANSAC~=1
-                index_color(1,i) = 2; %%% red
-            else
-                index_color(1,i) = 4; %%% blue
+            else %%% otherwise copy the result into the keyframe folder and delete the source file
+                index_color(1,i) = 3; %%% green
+                prev_key_frame_source = idx_key_frame_in_source;
+                idx_key_frame_in_source = i;
+                
+                %%%%%%%% COPY THE XYZ_DATA AND SIFT_FEATURE FILES FORM SOURCE
+                %%%%%%%% TO DESTINATION
+                %             xyz_file_in_source = sprintf('%s/xyz_data/xyz_%04d.mat',...
+                %                 source_folder,idx_key_frame_in_source);
+                %             SIFT_features_file_in_source = sprintf('%s/FeatureExtractionMatching/SIFT_result%04d.mat',...
+                %                 source_folder,idx_key_frame_in_source);
+                %
+                %             xyz_file_in_destination = sprintf('%s/xyz_data/xyz%04d.mat',...
+                %                 destination_folder,idx_key_frame_in_destination);
+                %             SIFT_features_file_in_destination = sprintf('%s/FeatureExtractionMatching/SIFT_result%04d.mat',...
+                %                 destination_folder,idx_key_frame_in_destination);
+                %
+                %             copyfile(xyz_file_in_source,xyz_file_in_destination)
+                %             copyfile(SIFT_features_file_in_source,SIFT_features_file_in_destination)
+                
+                
+                
+                
+                %%%%%%%% COPY RANSAC FILE TO DESTINATINO AND DELETE IT IN THE
+                %%%%%%%% SOURCE
+                RANSAC_file_in_destination = sprintf('%s/RANSAC_pose_shift_dr_Ye/RANSAC_RESULT_%d_%d.mat',...
+                    destination_folder,idx_key_frame_in_destination-1,idx_key_frame_in_destination);
+                copyfile(RANSAC_file_in_source,RANSAC_file_in_destination)
+                
+                save(RANSAC_file_in_destination,'idx_key_frame_in_source','prev_key_frame_source','-append')
+                delete(RANSAC_file_in_source)
+                
+                
+                %%%%%%%% COPY DATA FILE
+                source_data_file = sprintf('%s/d1_%04d.dat',source_folder,idx_key_frame_in_source);
+                destination_data_file = sprintf('%s/d1_%04d.dat',destination_folder,idx_key_frame_in_destination);
+                copyfile(source_data_file,destination_data_file)
+                
+                %%%%%%%% PLOT THE TWO MOST RECENT FRAMES
+                figure(fig_key_frames)
+                subplot(121)
+                im1=read_image_sr4000(destination_folder,max(idx_key_frame_in_destination-1,1));
+                imagesc(im1);colormap gray;
+                title(['frmae index in source folder is: ',num2str(idx_key_frame_in_source)],'Color','b')
+                
+                subplot(122)
+                
+                im1=read_image_sr4000(destination_folder,idx_key_frame_in_destination);
+                imagesc(im1);colormap gray;
+                title(['frmae index in destination folder is: ',num2str(idx_key_frame_in_destination)],'Color','r')
+                
+                idx_key_frame_in_destination =idx_key_frame_in_destination+1;
+                cprintf('blue', '------------------------------------------\n');
+                
+                %%%%  plot the dead reckoning result
+                
+                %             cprintf('-green',['steps : [',num2str(last_starting_idx),' ',num2str(i+1),']\n' ]);
+                if State_RANSAC~=1
+                    dX_gt = [0;0;0];
+                    dq_calc = [1;0;0;0];
+                    idx_RANSAC_fail = [idx_RANSAC_fail,idx_key_frame_in_destination];
+                end
+                H = H*Pose2H([dX_gt;q2e(dq_calc)]);
+                xx(:,idx_key_frame_in_destination) = [H(1:3,4);R2q(H(1:3,1:3))];
+                figure(figure_debug)
+                
+                subplot(211)
+                %     hold off
+                
+                %     draw_camera( [V*0;q' ], 'r' );
+                %     hold on
+                %     axis equal
+                %     grid on
+                %     grid minor
+                % % %     draw_camera( [H(1:3,4)*0; R2q(H(1:3,1:3))], 'k' );
+                % % %
+                % % %     xlim(0.35*[-1 1])
+                % % %     zlim(0.35*[-1 1])
+                % % %     ylim(0.35*[-1 1])
+                im = read_image_sr4000(myCONFIG.PATH.DATA_FOLDER,idx_key_frame_in_destination);
+                imagesc(im);colormap gray;
+                %     hold off
+                subplot(212)
+                xlims(1)=min([xlims(1),H(1,4)-0.3]);
+                xlims(2)=max([xlims(2),H(1,4)+0.3]);
+                
+                ylims(1)=min([zlims(1),H(2,4)-0.3]);
+                ylims(2)=max([zlims(2),H(2,4)+0.3]);
+                
+                zlims(1)=min([zlims(1),H(3,4)-0.3]);
+                zlims(2)=max([zlims(2),H(3,4)+0.3]);
+                plot3( xx(1, 1:idx_key_frame_in_destination), xx(2, 1:idx_key_frame_in_destination),...
+                    xx(3, 1:idx_key_frame_in_destination), 'k', 'LineWidth', 2 );
+                grid on
+                hold on
+                draw_camera( [H(1:3,4); R2q(H(1:3,1:3))], 'r' );
+                axis equal
+                xlim(xlims)
+                ylim(ylims)
+                zlim(zlims)
+                hold off
+                hold off
+                disp(['---',num2str(i),'--->\n'])
             end
-        else %%% otherwise copy the result into the keyframe folder and delete the source file
-            index_color(1,i) = 3; %%% green
-            prev_key_frame_source = idx_key_frame_in_source;
-            idx_key_frame_in_source = i;
-            
-            %%%%%%%% COPY THE XYZ_DATA AND SIFT_FEATURE FILES FORM SOURCE
-            %%%%%%%% TO DESTINATION
-            %             xyz_file_in_source = sprintf('%s/xyz_data/xyz_%04d.mat',...
-            %                 source_folder,idx_key_frame_in_source);
-            %             SIFT_features_file_in_source = sprintf('%s/FeatureExtractionMatching/SIFT_result%04d.mat',...
-            %                 source_folder,idx_key_frame_in_source);
-            %
-            %             xyz_file_in_destination = sprintf('%s/xyz_data/xyz%04d.mat',...
-            %                 destination_folder,idx_key_frame_in_destination);
-            %             SIFT_features_file_in_destination = sprintf('%s/FeatureExtractionMatching/SIFT_result%04d.mat',...
-            %                 destination_folder,idx_key_frame_in_destination);
-            %
-            %             copyfile(xyz_file_in_source,xyz_file_in_destination)
-            %             copyfile(SIFT_features_file_in_source,SIFT_features_file_in_destination)
-            
-            
-            
-            
-            %%%%%%%% COPY RANSAC FILE TO DESTINATINO AND DELETE IT IN THE
-            %%%%%%%% SOURCE
-            RANSAC_file_in_destination = sprintf('%s/RANSAC_pose_shift_dr_Ye/RANSAC_RESULT_%d_%d.mat',...
-                destination_folder,idx_key_frame_in_destination-1,idx_key_frame_in_destination);
-            copyfile(RANSAC_file_in_source,RANSAC_file_in_destination)
-            
-            save(RANSAC_file_in_destination,'idx_key_frame_in_source','prev_key_frame_source','-append')
-            delete(RANSAC_file_in_source)
-            
-            
-            %%%%%%%% COPY DATA FILE
-            source_data_file = sprintf('%s/d1_%04d.dat',source_folder,idx_key_frame_in_source);
-            destination_data_file = sprintf('%s/d1_%04d.dat',destination_folder,idx_key_frame_in_destination);
-            copyfile(source_data_file,destination_data_file)
-            
-            %%%%%%%% PLOT THE TWO MOST RECENT FRAMES
-            figure(fig_key_frames)
-            subplot(121)
-            im1=read_image_sr4000(destination_folder,max(idx_key_frame_in_destination-1,1));
-            imagesc(im1);colormap gray;
-            title(['frmae index in source folder is: ',num2str(idx_key_frame_in_source)],'Color','b')
-            
-            subplot(122)
-            
-            im1=read_image_sr4000(destination_folder,idx_key_frame_in_destination);
-            imagesc(im1);colormap gray;
-            title(['frmae index in destination folder is: ',num2str(idx_key_frame_in_destination)],'Color','r')
-            
-            idx_key_frame_in_destination =idx_key_frame_in_destination+1;
-            cprintf('blue', '------------------------------------------\n');
-            
-            %%%%  plot the dead reckoning result
-            
-            %             cprintf('-green',['steps : [',num2str(last_starting_idx),' ',num2str(i+1),']\n' ]);
-            if State_RANSAC~=1
-                dX_gt = [0;0;0];
-                dq_calc = [1;0;0;0];
-                idx_RANSAC_fail = [idx_RANSAC_fail,idx_key_frame_in_destination];
-            end
-            H = H*Pose2H([dX_gt;q2e(dq_calc)]);
-            xx(:,idx_key_frame_in_destination) = [H(1:3,4);R2q(H(1:3,1:3))];
-            figure(figure_debug)
-            
-            subplot(211)
-            %     hold off
-            
-            %     draw_camera( [V*0;q' ], 'r' );
-            %     hold on
-            %     axis equal
-            %     grid on
-            %     grid minor
-            % % %     draw_camera( [H(1:3,4)*0; R2q(H(1:3,1:3))], 'k' );
-            % % %
-            % % %     xlim(0.35*[-1 1])
-            % % %     zlim(0.35*[-1 1])
-            % % %     ylim(0.35*[-1 1])
-            im = read_image_sr4000(myCONFIG.PATH.DATA_FOLDER,idx_key_frame_in_destination);
-            imagesc(im);colormap gray;
-            %     hold off
-            subplot(212)
-            xlims(1)=min([xlims(1),H(1,4)-0.3]);
-            xlims(2)=max([xlims(2),H(1,4)+0.3]);
-            
-            ylims(1)=min([zlims(1),H(2,4)-0.3]);
-            ylims(2)=max([zlims(2),H(2,4)+0.3]);
-            
-            zlims(1)=min([zlims(1),H(3,4)-0.3]);
-            zlims(2)=max([zlims(2),H(3,4)+0.3]);
-            plot3( xx(1, 1:idx_key_frame_in_destination), xx(2, 1:idx_key_frame_in_destination),...
-                xx(3, 1:idx_key_frame_in_destination), 'k', 'LineWidth', 2 );
-            grid on
-            hold on
-            draw_camera( [H(1:3,4); R2q(H(1:3,1:3))], 'r' );
-            axis equal
-            xlim(xlims)
-            ylim(ylims)
-            zlim(zlims)
-            hold off
-            hold off
-            disp(['---',num2str(i),'--->\n'])
         end
     end
 end

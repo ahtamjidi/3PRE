@@ -46,7 +46,6 @@ if isempty(current_step) || (~isempty(current_step)  && current_step ~= step )
 end
 if idxInNormRand>size(UV_GoodFeaturesToInitialize,1)
      uv=[];
-     flag_no_more_features = 1;
      return
 end
 half_patch_size_when_initialized = 20;
