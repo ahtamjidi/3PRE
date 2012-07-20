@@ -1,0 +1,18 @@
+package lcmtypes;
+
+struct image_t
+{
+    int64_t utime;              // Timestamp that the actual measurement took place.
+                                // expressed in microseconds since 
+                                // 00:00:00 January 1, 1970 UTC
+
+    // width and height of the image.  ignore stride.
+    int16_t  width, height, stride;
+
+    // this can be safely ignored
+    int32_t  pixelformat;
+
+    // a JPEG image
+    int32_t  size;
+    byte     image[size];
+}

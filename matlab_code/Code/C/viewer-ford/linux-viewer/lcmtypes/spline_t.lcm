@@ -1,0 +1,15 @@
+package lcmtypes;
+
+// hermite spline
+//
+// the points member is explicitly arranged so that the C struct is 
+// castable to a hspline_point_t
+struct spline_t
+{
+    int16_t         num_points;
+
+    // each spline point is given as  x, y, dx, dy
+    double          points[num_points][4];
+    double          score;
+}
+

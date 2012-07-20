@@ -1,0 +1,15 @@
+package lcmtypes;
+
+struct trans_switch_t {
+    int64_t utime;
+
+    int16_t shore_volts;    //shore voltage in Volts
+    int16_t gen_volts;      //generator voltage in Volts
+    int16_t shore_amps;     //shore amperage in amps
+    int16_t gen_amps;       //generator amperage in amps
+    int16_t volt_stat;      //voltage status number
+    int16_t ATS_stat;       //ATS status number
+    int16_t power_stat;     //power status number
+}
+
+    

@@ -1,0 +1,26 @@
+package lcmtypes;
+
+// The center of the rectangle is given by:
+// rect_list_t.xy + rect_t.dxy
+//
+// The rectangle's dimensions are described for a axis-aligned
+// rectangle prior to rotation. E.g., for the corners of the
+// rectangle, construct the transformation matrix:
+//
+//     [ cos(theta) -sin(theta) xy[0]+dxy[0] ]
+// P = [ sin(theta)  cos(theta) xy[1]+dxy[1] ]
+//     [     0           0           1       ]
+//
+// And transform the points:
+//
+// [ +/- size[0]/2 ] 
+// [ +/- size[1]/2 ]
+// [       1       ]
+
+struct rect_t
+{
+    float dxy[2]; 
+    float size[2];
+
+    float theta;
+}

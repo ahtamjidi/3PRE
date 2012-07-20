@@ -1,0 +1,38 @@
+package lcmtypes;
+
+struct lane_t {
+    lcmtypes.lane_boundary_t left_boundary;
+    lcmtypes.lane_boundary_t right_boundary;
+    int32_t rndf_segment_id;
+    int32_t rndf_lane_id;
+
+    // nominal lane width, in meters
+    float lane_width;
+
+    int32_t ncenterpoints;
+    double centerline[ncenterpoints][2];
+    float centerline_confidence[ncenterpoints];
+
+    // a hint to the consumers of the lcm_lane_t that if a control point has 
+    // confidence greater than centerline_confident_thresh, then the lane
+    // tracker has strong reason to believe that the control point is actually
+    // correct.  Otherwise, the lane tracker is just making stuff up.
+    float centerline_confidence_thresh;
+
+    // the ID number of the last waypoint _not_ present in this lane
+    // description.  This can be 0 (an illegal waypoint ID)
+    int32_t prev_waypoint_id;
+
+    // the ID number of the first waypoint greater than prev_waypoint_id that
+    // is _not_ present in this lane description.  This can be greater than
+    // the last waypoint ID in the RNDF lane.
+    int32_t next_waypoint_id;
+
+    // the number of RNDF waypoints in this lane description.  should be equal
+    // to next_waypoint_id - prev_waypoint_id - 1
+    int32_t nwaypoints;
+    
+    // the indices, within centerline, of the best estimate of the RNDF
+    // waypoints in this lane description.
+    int32_t waypoint_indices[nwaypoints];
+}

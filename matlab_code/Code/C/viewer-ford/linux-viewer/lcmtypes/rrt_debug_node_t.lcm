@@ -1,0 +1,14 @@
+package lcmtypes;
+
+struct rrt_debug_node_t {
+    int64_t 		id;
+    
+    boolean			is_safe;
+    boolean			is_forward;			
+    float			cumulative_cost;
+    float			UB_cost;		// -1 if MAX_COST
+    int16_t			npt_input;
+    lcmtypes.point2d_float_t	input[npt_input];
+    int16_t			npt_state;
+    lcmtypes.point2d_float_t state[npt_state];
+}

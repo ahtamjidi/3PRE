@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+
+<project name="mitdgc" default="build" basedir=".">
+
+<!-- Build everything -->
+<target name="build" depends="build-java,build-jar"/>
+
+<!-- Clean everything -->
+<target name="clean" depends="clean-java"/>
+
+<!-- Dist Clean everyting -->
+<target name="distclean" depends="clean">
+  <delete dir="build"/>
+  <delete file="mitdgc.jar"/>
+  <delete dir="depcache"/>
+</target>
+
+<!-- Build Jar -->
+<target name="build-jar">
+<jar destfile="mitdgc.jar">
+
+  <fileset dir="build">
+    <include name="**/*.class" />
+  </fileset>
+ </jar>
+ <copy file="mitdgc.jar" todir="." />
+</target>
+
+<target name="build-java">
+ <!-- This does deep dependency checking on class files 
+  <depend
+   srcdir="."
+   cache="depcache"
+  closure="true"
+  /> -->
+
+ <!-- This compiles all the java -->
+ <javac
+  srcdir="src"
+  includes="**/*.java"
+  debug="on"
+  optimize="off"
+  destdir="build"
+  compiler="extJavac"
+  source="1.5"
+  >
+</javac>
+</target>
+
+<target name="clean-java" >
+ <delete>
+  <fileset dir="build" includes="**/*.class"/>
+  <fileset dir="src/lcmtypes/" includes="*.java"/>
+  <fileset dir="." includes="**/*~" defaultexcludes="no"/>
+  <fileset dir="." includes="mitdgc.jar"/>
+ </delete>
+</target>
+
+<target name="build-scripts" depends="build-jar">
+    <exec dir="." executable="./make-java-scripts"/>
+</target>
+
+</project>
+

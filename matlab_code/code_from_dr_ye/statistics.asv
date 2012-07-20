@@ -1,0 +1,45 @@
+% Batch computation of euler angle and translation for statistical analysis
+%********************************************************************
+for j=1:2000
+    [phi(j), theta(j), psi(j), trans(:,j)] =vot(j);
+end
+r2d=180.0/pi;
+
+tr1 = [phi*r2d; theta*r2d; psi*r2d; trans];
+tr = [phi; theta; psi; trans];
+fid=fopen('res.dat', 'w');
+fprintf(fid, '%12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n', tr);
+fclose(fid);
+%********************************************************************
+
+fp=fopen('res.dat','r');
+dd=fscanf(fp, '%f', [6, 2000]);
+fclose(fp);
+
+r2d=180/pi;
+for i=1:3
+    dd(i,:)=dd(i,:)*r2d;
+end
+
+for(i=1:size(dd,2))
+    error(:,i)=dd(:,i)-[0.0 -5.9 5.0 -0.08 0.13 0.0]';
+end
+
+dmin=min(error, [], 2);
+dmax=max(error, [], 2);
+
+for i=1:6
+    du(i,:)=(dmax(i)-dmin(i))/100.0;
+    bin(i,:)=dmin(i):du(i,:):dmax(i);
+    fg(i)=figure(i);
+    h(i,:)=hist(error(i,:), bin(i,:));
+    bar(bin(i,:), h(i,:));
+    grid on;
+end
+
+figure(fg(1));  title('Roll (\phi) error distribution');  xlabel('\phi (degree)');  ylabel('Number');
+figure(fg(2));  title('Pitch (\theta) error distribution');  xlabel('\theta (degree)');  ylabel('Number');
+figure(fg(3));  title('Yaw (\psi) error distribution');  xlabel('\psi (degree)');  ylabel('Number');
+figure(fg(4));  title('X error distribution'); xlabel('X (meter)');  ylabel('Number');
+figure(fg(5));  title('Y error distribution'); xlabel('Y (meter)');  ylabel('Number');
+figure(fg(6));  title('Z error distribution'); xlabel('Z (meter)');  ylabel('Number');

@@ -1,0 +1,18 @@
+Each .dat file is a data frame captured from the contains 4 2-D arrays each of which represent z (depth), x, y, and amplitude. 
+
+h=figure(1);
+
+for i=1:400
+    if i<10
+        [s, err]=sprintf('hw2/hw2_000%d.dat', i);
+    elseif i<100
+        [s, err]=sprintf('hw2/hw2_00%d.dat', i);
+    else
+        [s, err]=sprintf('hw2/hw2_0%d.dat', i);
+    end
+    a=load(s);
+    imagesc(a(144*3+1:144*4, :)); colormap(gray);
+    title(['frame ', int2str(i)]);
+    drawnow;
+end
+

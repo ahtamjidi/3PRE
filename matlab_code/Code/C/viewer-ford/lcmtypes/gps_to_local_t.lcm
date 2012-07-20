@@ -1,0 +1,37 @@
+package lcmtypes;
+
+struct gps_to_local_t
+{
+    int64_t utime;              // Timestamp that the actual measurement took place.
+                                // expressed in microseconds since 
+                                // 00:00:00 January 1, 1970 UTC
+
+    double local[3];            // Point in the local frame (meters) that
+                                // correponds to lat_lon_el_theta[4].
+                                // 
+                                // This point typically corresponds to the
+                                // center of the vehicle's rear-axle.
+
+    double lat_lon_el_theta[4]; // Latitude, longitude, and elevation that
+                                // corresponds to local[3].  theta is the angle
+                                // between the y-axis of the local frame and
+                                // true north (see below for precise defn).
+                                // Lat, lon are in degrees.  Elevation is in
+                                // meters, theta is in radians.
+
+    float gps_cov[4][4];        // Covariance of the GPS coordinates above,
+                                // except that all of lat, lon, and el are
+                                // expressed in meters.  theta is in radians.
+
+    // The global-to-local transformation is defined according the equations
+    // below, which take a (lat,lon,el) triple and convert it to (x,y,z) in
+    // the local frame.  linearize() is a function that expresses lat and lon
+    // in Euclidean coordinates centered at the position in
+    // lat_lon_el_theta[4].  True north is the y-axis and true east is the
+    // x-axis of this intermediate coordinate system.
+    //
+    // x' = linearize(lon), y' = linearize(lat), z' = el
+    // x = x' * cos (theta) - y' * sin (theta) + local[0]
+    // y = x' * sin (theta) + y' * cos (theta) + local[1]
+    // z = z'                                  + local[2]
+}

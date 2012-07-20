@@ -1,0 +1,16 @@
+package lcmtypes;
+
+enum which_control_t {
+    GASBRAKE=0,
+    STEERING,
+}
+
+struct emc_feedback_t
+{
+    int64_t utime;
+
+    lcmtypes.which_control_t control;
+
+    int16_t encoder_pos; // 0-1024
+    int16_t commanded_pos; // 0-1024
+}	

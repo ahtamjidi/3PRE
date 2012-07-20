@@ -1,0 +1,17 @@
+package lcmtypes;
+
+enum rndf_locale_type_t {
+	IN_LANE,
+	IN_INTERSECTION,
+	IN_ZONE,
+	IN_INVALID_LOCATION,
+}
+
+struct rndf_locale_t
+{
+    lcmtypes.rndf_locale_type_t type;
+    lcmtypes.waypoint_id_t last;
+    lcmtypes.waypoint_id_t next;
+    double frac;
+    int32_t sequence_id_next;
+}	

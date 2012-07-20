@@ -1,0 +1,10 @@
+package lcmtypes;
+
+struct rrt_plan_lsc_step_t {
+    double v_cmd;          // commanded speed
+    double dvdt;           // time derivative of v_cmd
+    double pos[2];         // x, y coordinates of predicted car position
+    double heading;        // heading of predicted car position
+    double steer_ff;       // feedforward steering angle
+}
+

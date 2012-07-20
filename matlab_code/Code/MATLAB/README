@@ -1,0 +1,67 @@
+These functions are being made available for easy access and visualization 
+of the "Ford Campus Vision and Laser dataset".  
+You may not copy, sell or redistribute this software in whole or in part 
+without permission of the author. For further details, contact Gaurav Pandey 
+at pgaurav@umich.edu.
+
+THE AUTHOR MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND
+CONCERNING THIS SOFTWARE.
+
+"MATLAB"-: This folder contains the MATLAB utility functions to play around with 
+the dataset. To use this function first add this directory "MATLAB" to your matlab's 
+current directory and type this command on the command prompt:
+>> addpath(genpath(pwd))
+
+Now you are ready to use these functions:
+
+(1) hdl_player: This function allows the user to playback the 3D pointcloud data 
+    stored in the "pcap" format under the folder "VELODYNE". When you run 
+    hdl_player a window will pop-up asking you to enter the ".pcap" file you want to render.
+
+(2) display_3d_pointcloud: This functions allows the user to render the individual scan 
+    in a separate figure window. The input to the function are:
+    folder:    Directory where the dataset is unzipped. This folder should have
+               the folders SCANS, IMAGES, LCM, VELODYNE
+    scanIndex: Index of the scan to be displayed
+
+(3) plot_3Dpoints_on_full_image: This function projects the 3D point cloud on the full image. 
+    The input to the function are:
+    folder:    The main directory as mentioned in the paper
+    scanIndex: The index of the Scan to be displayed
+    sort_mode: 'r' for coloring based on range
+               'z' for coloring based on height above ground plane.
+
+(4) project_3D_pointcloud_to_images: This function projects the pointcloud onto the corresponding image.
+    The input to the function are:
+    folder:    Directory where the dataset is unzipped. This folder should have the folders SCANS, IMAGES, LCM, VELODYNE
+    scanIndex: Index of the scan to be displayed
+
+(5) load_pose_applanix: This function loads the Pose of the vehicle for the entire trajectory
+    The Pose data structure:
+    Pose.utime:         [nx1] array of unix timestamp when the pose was captured
+    Pose.pos:           [nx3] array of translation vector
+    Pose.vel:           [nx3] array of velocity in x, y and z direction
+    Pose.rotation_rate: [nx3] array of angular velocities in x, y and z
+                        direction
+    Pose.accel:         [nx3] array of acceleration in x, y and z direction
+    Pose.rph:           [nx3] array of the orientation about the x, y and z axis
+    Pose.orientation:   [nx4] array of orientation in quaternion form
+    The input to the function is the path of Pose-Applanix.log provided with the dataset.
+
+(6) load_pose_mtig: This function loads the Pose of the vehicle for the entire trajectory
+    The Pose data structure :
+    Pose.utime:         [nx1] array of unix timestamp when the pose was captured
+    Pose.pos:           [nx3] array of translation vector
+    Pose.vel:           [nx3] array of velocity in x, y and z direction
+    Pose.rotation_rate: [nx3] array of angular velocities in x, y and z
+                        direction
+    Pose.accel:         [nx3] array of acceleration in x, y and z direction
+    Pose.rph:           [nx3] array of the orientation about the x, y and z axis 
+
+(7) load_gps:  This functions loads the GPS data from the log file "filename" into the
+    MATLAB workspace and also saves the GPS coordinates in "outfile", in a format which can 
+    be plotted on google maps via gpsvisualizer.com. 
+    The structure of Gps_struct is:
+    Gps_struct.utime:            unix timestamp when the data was collected.
+    Gps_struct.lat_lon_el_theta: GPS coordinates (latitude, longitude, elevation, theta)
+    Gps_struct.gps_cov:          Covariance of the GPS coordinates.

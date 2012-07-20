@@ -1,0 +1,11 @@
+package lcmtypes;
+
+struct curb_polylines_t
+{
+	int64_t           utime;
+	int32_t           nlines;
+
+    // the left side of each polyline is always the drivable side, and the 
+    // right side is the non-drivable side
+	lcmtypes.pointlist2d_t lines[nlines];
+}

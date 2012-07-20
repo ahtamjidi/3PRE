@@ -1,0 +1,8 @@
+package lcmtypes;
+
+struct rrt_cost_t {
+    int64_t utime;
+
+	double  worst_cost;		// between 0 and 255
+}
+

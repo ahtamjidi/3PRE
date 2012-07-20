@@ -1,0 +1,22 @@
+package lcmtypes;
+
+struct goal_t 
+{
+     int64_t id;
+    
+    double pos[2];         // center of the goal box in local frame
+    double size[2];        // dimensions of goal box along the orientation
+    double theta;          // orientation of goal box (rad) in local frame
+	// theta is also the desired orientation of the car.
+    
+    boolean  use_theta;
+    double heading_tol;    // tolerance on desired heading
+    double speed;          // desired speed at goal point meters/sec
+    double speed_tol;      // tolerance on desired speed
+
+    float max_speed;       // maximum speed in driving towards the goal
+    float min_speed;       // minimum speed in driving towards the goal
+    boolean wait_until_reachable;
+                           // don't begin moving towards the goal until there
+                           // is an unobstructed path that reaches it
+}

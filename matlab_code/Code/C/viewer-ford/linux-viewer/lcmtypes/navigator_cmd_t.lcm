@@ -1,0 +1,15 @@
+package lcmtypes;
+
+enum navigator_cmd_enum_t {
+    LOAD_MDF=0,
+    CLEAR_MDF=1,
+    SKIP_CHECKPOINT=2,
+}
+
+struct navigator_cmd_t {
+    int64_t utime;
+
+    lcmtypes.navigator_cmd_enum_t cmd;
+    int32_t length;
+    byte data[length];
+}

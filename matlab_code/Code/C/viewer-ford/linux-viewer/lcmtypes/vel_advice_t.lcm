@@ -1,0 +1,22 @@
+package lcmtypes;
+
+struct vel_advice_t {
+    int64_t utime;
+    double  a_vert;         // [m/s^2] vertical acceleration in body frame
+    double  va_a_vert;      // [m/s] speed advice based on vertical 
+                            // acceleration
+    double  va_pitch;       // [m/s] speed advice based on vehicle pitch
+    double  va_roll;        // [m/s] speed advice based on vehicle roll
+    double  va_lane_conf;   // [m/s] speed advice based on lane confidence
+    double  va_rrt_cost;    // [m/s] speed advice based on maximum trajectory 
+                            // cost
+    double  vel_advice;     // [m/s] combined speed advice, >= 0.0
+    int8_t  vel_level;      // [.] discretized vel_advice level with 
+                            // hysteresis. vel_level satisfy: 0 <= vel_level <= 
+                            //         ((30.0 mph * mph_to_m_s / vel_step) - 1)
+    double  vel_step;       // [m/s] (constant, but published to maintain 
+                            // consistency across multiple user modules) speed 
+                            // step. The actual speed advice with hysteresis to 
+                            // be used is: (vel_level + 1) * vel_step
+}
+

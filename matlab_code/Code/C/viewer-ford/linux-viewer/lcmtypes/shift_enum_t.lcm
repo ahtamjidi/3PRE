@@ -1,0 +1,11 @@
+package lcmtypes;
+
+enum shift_enum_t {
+    UNKNOWN = 0,
+    PARK = 1,
+    REVERSE = 2,
+    NEUTRAL = 3,
+    DRIVE = 4,
+    DRIVE2 = 5,
+}
+

@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - sign.c </TITLE>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT="#1122aa" ONLOAD="if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window);}">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///home/amirhossein/Desktop/Current_Work/april_2012/SR4000/EKF_monoSLAM_1pRANSAC/matlab_code/mex_files/CorePar_Ver1/codegen/mex/corrcoef_partitioned/sign.c" TARGET="rtwreport_document_frame">/home/amirhossein/Desktop/Current_Work/april_2012/SR4000/EKF_monoSLAM_1pRANSAC/matlab_code/mex_files/CorePar_Ver1/codegen/mex/corrcoef_partitioned/sign.c</A></H4>
+<PRE id="RTWcode">
+<FONT COLOR="#888888"><I>    1   </I></FONT><FONT COLOR="#117755"><I>/*</I></FONT>
+<FONT COLOR="#888888"><I>    2   </I></FONT><FONT COLOR="#117755"><I> * sign.c</I></FONT>
+<FONT COLOR="#888888"><I>    3   </I></FONT><FONT COLOR="#117755"><I> *</I></FONT>
+<FONT COLOR="#888888"><I>    4   </I></FONT><FONT COLOR="#117755"><I> * Code generation for function 'sign'</I></FONT>
+<FONT COLOR="#888888"><I>    5   </I></FONT><FONT COLOR="#117755"><I> *</I></FONT>
+<FONT COLOR="#888888"><I>    6   </I></FONT><FONT COLOR="#117755"><I> * C source code generated on: Wed May  2 02:54:19 2012</I></FONT>
+<FONT COLOR="#888888"><I>    7   </I></FONT><FONT COLOR="#117755"><I> *</I></FONT>
+<FONT COLOR="#888888"><I>    8   </I></FONT><FONT COLOR="#117755"><I> */</I></FONT>
+<FONT COLOR="#888888"><I>    9   </I></FONT>
+<FONT COLOR="#888888"><I>   10   </I></FONT><FONT COLOR="#117755"><I>/* Include files */</I></FONT>
+<FONT COLOR="#888888"><I>   11   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;rt_nonfinite.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   12   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;corrcoef_partitioned.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   13   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;sign.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   14   </I></FONT>
+<FONT COLOR="#888888"><I>   15   </I></FONT><FONT COLOR="#117755"><I>/* Type Definitions */</I></FONT>
+<FONT COLOR="#888888"><I>   16   </I></FONT>
+<FONT COLOR="#888888"><I>   17   </I></FONT><FONT COLOR="#117755"><I>/* Named Constants */</I></FONT>
+<FONT COLOR="#888888"><I>   18   </I></FONT>
+<FONT COLOR="#888888"><I>   19   </I></FONT><FONT COLOR="#117755"><I>/* Variable Declarations */</I></FONT>
+<FONT COLOR="#888888"><I>   20   </I></FONT>
+<FONT COLOR="#888888"><I>   21   </I></FONT><FONT COLOR="#117755"><I>/* Variable Definitions */</I></FONT>
+<FONT COLOR="#888888"><I>   22   </I></FONT>
+<FONT COLOR="#888888"><I>   23   </I></FONT><FONT COLOR="#117755"><I>/* Function Declarations */</I></FONT>
+<FONT COLOR="#888888"><I>   24   </I></FONT>
+<FONT COLOR="#888888"><I>   25   </I></FONT><FONT COLOR="#117755"><I>/* Function Definitions */</I></FONT>
+<FONT COLOR="#888888"><I>   26   </I></FONT>
+<FONT COLOR="#888888"><I>   27   </I></FONT><FONT COLOR="#117755"><I>/*</I></FONT>
+<FONT COLOR="#888888"><I>   28   </I></FONT><FONT COLOR="#117755"><I> * </I></FONT>
+<FONT COLOR="#888888"><I>   29   </I></FONT><FONT COLOR="#117755"><I> */</I></FONT>
+<FONT COLOR="#888888"><I>   30   </I></FONT><FONT COLOR="#112266"><B>void</B></FONT> <A NAME="fcn_b_sign">b_sign</A>(real_T *x)
+<FONT COLOR="#888888"><I>   31   </I></FONT><B>{</B>
+<FONT COLOR="#888888"><I>   32   </I></FONT>    <FONT COLOR="#112266"><B>if</B></FONT> (*x &gt; 0.0) <B>{</B>
+<FONT COLOR="#888888"><I>   33   </I></FONT>        *x = 1.0;
+<FONT COLOR="#888888"><I>   34   </I></FONT>    <B>}</B> <FONT COLOR="#112266"><B>else</B></FONT> <FONT COLOR="#112266"><B>if</B></FONT> (*x &lt; 0.0) <B>{</B>
+<FONT COLOR="#888888"><I>   35   </I></FONT>        *x = -1.0;
+<FONT COLOR="#888888"><I>   36   </I></FONT>    <B>}</B> <FONT COLOR="#112266"><B>else</B></FONT> <B>{</B>
+<FONT COLOR="#888888"><I>   37   </I></FONT>        <FONT COLOR="#112266"><B>if</B></FONT> (*x == 0.0) <B>{</B>
+<FONT COLOR="#888888"><I>   38   </I></FONT>            *x = 0.0;
+<FONT COLOR="#888888"><I>   39   </I></FONT>        <B>}</B>
+<FONT COLOR="#888888"><I>   40   </I></FONT>    <B>}</B>
+<FONT COLOR="#888888"><I>   41   </I></FONT><B>}</B>
+<FONT COLOR="#888888"><I>   42   </I></FONT><FONT COLOR="#117755"><I>/* End of code generation (sign.c) */</I></FONT>
+<FONT COLOR="#888888"><I>   43   </I></FONT></PRE>
+</TD></TR></TABLE>
+</P>
+</BODY>
+</HTML>

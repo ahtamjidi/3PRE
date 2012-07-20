@@ -1,0 +1,11 @@
+package lcmtypes;
+
+struct navigator_plan_t {
+    int64_t utime;
+
+    int32_t num_waypoints;
+    lcmtypes.waypoint_id_t waypoints[num_waypoints];
+
+    int32_t checkpoint_index;
+    int32_t checkpoints_remaining;
+}

@@ -1,0 +1,143 @@
+This is the README for the source code accompanying the Ford Vision and Laser dataset, which
+is a modified version of the source code available with MIT DARPA Grand Challenge dataset.
+
+
+Table of Contents:
+
+1.  Directory Layout
+2.  Parsing the data files
+3.  Using the Linux Viewer
+4.  LCM Log file format
+
+
+1. Directory Layout
+===================
+
+There are 3 top-level directories:
+ 
+c/
+
+    Contains C source code and examples for parsing the LCM log files,
+    extracting data, and using the sensor calibrations.  
+
+lcmtypes/
+
+    Contains the LCM type definitions that are officially supported in this
+    dataset.
+
+linux-viewer/
+
+    Contains a Linux-specific application for visualizing logged data in a
+    common coordinate frame.
+
+Additionally, there is a file "ford.cfg" that contains the sensor calibration
+data and other physical characteristics of the Ford F-250 pickup truck.
+
+2. Parsing the data files
+=========================
+
+The following C programs demonstrate how to extract information from the log
+files:
+
+  c/example1-applanix-poses.c  Extract the locally integrated and filtered vehicle
+                               pose coming from applanix (high cost professional IMU)
+  c/example2-mtig-poses.c      Extract the raw data coming from MTIG (low cost consumer IMU)
+  c/example3-gps.c             Extract the vehicle GPS pose.
+  c/example4-riegl.c           Extract Riegl laser range and intensity data.
+
+
+A Makefile is provided for these example programs, and requires GCC.  The
+examples do not require any external/3rd-party libraries.
+
+In addition to the example programs, the following files contain potentially
+useful data structures and algorithms:
+
+  c/config.h             Parsing and extracting information from the
+                         configuration file (i.e., calibration parameters)
+  c/camtrans.h           Project and un-project points and rays between a 
+                         camera's pixel space and the vehicle body frame
+  c/small_linalg.h       Simple linear algebra routines
+  c/rotations.h          Routines for working with rotations
+  c/velodyne.h           Routines for parsing raw Velodyne data
+
+  c/eventlog.h                   Read/write the raw data packets in a log file
+  c/lcmtypes_pose_t.h            Data structure for a logged pose estimate
+  c/lcmtypes_mtig_t.h            Data structure for a data from mtig (consumer grade IMU)
+  c/lcmtypes_laser_t.h           Data structure for a logged RIEGL scan
+
+The data files are stored using the LCM log file format, described below.  The
+LCM libraries and tools can also be used to parse and work with the data files
+from Java, Python, and MATLAB, in addition to C.  See the LCM website for more
+information.
+
+
+[1] http://lcm.googlecode.com
+
+3. Using the Linux viewer
+=========================
+
+See the linux-viewer/README file for information on how to compile and use the
+data visualization application.
+
+
+4.  LCM log file format
+========================
+
+This section describes the log file format.  
+
+It is not necessary to read this section to extract data from the log files, as
+the files c/eventlog.c and c/eventlog.h implement this functionality.
+
+Conceptually, an LCM Log file is an ordered list of events. Each event has four
+fields:
+
+1. event number    
+   monotonically increasing 64-bit integer that identifies each event. It
+   should start at zero, and increase in increments of one.  
+2. timestamp
+   monotonically increasing 64-bit integer that identifies the number of
+   microseconds since the epoch (00:00:00 UTC on January 1, 1970) at which the
+   event was received.
+3. channel     
+   UTF-8 string identifying the LCM channel on which the message was received.
+4. data    
+   binary blob consisting of the exact message received. 
+
+Each event is encoded as a binary structure consisting of a header, followed by
+the channel and the data.
+
+The header is 28 bytes and has the following format:
+
+ 0      7 8     15 16    23 24    31 
++--------+--------+--------+--------+
+|   LCM Sync Word                   |
++--------+--------+--------+--------+
+|   Event Number (upper 32 bits)    |
++--------+--------+--------+--------+
+|   Event Number (lower 32 bits)    |
++--------+--------+--------+--------+
+|   Timestamp (upper 32 bits)       |
++--------+--------+--------+--------+
+|   Timestamp (lower 32 bits)       |
++--------+--------+--------+--------+
+|   Channel Length                  |
++--------+--------+--------+--------+
+|   Data Length                     |
++--------+--------+--------+--------+
+
+LCM Sync Word is an unsigned 32-bit integer with value 0xEDA1DA01
+
+Event Number and Timestamp fields of the header are as described above.
+
+Channel Length field is an unsigned 32-bit integer describing the length of the
+channel name.
+
+Data Length field is an unsigned 32-bit integer describing the length of the
+data.
+
+Each header is immediately followed by the UTF-8 encoding of the LCM channel,
+and then the message data. The channel is not NULL-terminated.
+
+All integers are packed in network order (big endian) 
+
+

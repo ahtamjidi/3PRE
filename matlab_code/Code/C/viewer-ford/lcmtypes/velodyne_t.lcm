@@ -1,0 +1,15 @@
+package lcmtypes;
+
+struct velodyne_t
+{
+    int64_t utime;              // Timestamp that the actual measurement took place.
+                                // expressed in microseconds since 
+                                // 00:00:00 January 1, 1970 UTC
+
+    // data array contains a raw data packet as received from the Velodyne
+    // The specifications for this data packet can be found at
+    //     http://www.velodyne.com/lidar/ManualList.aspx
+    // (last checked: Apr 25, 2010)
+    int32_t datalen;
+    byte data[datalen];
+}

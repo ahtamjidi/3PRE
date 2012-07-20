@@ -1,0 +1,32 @@
+package lcmtypes;
+
+struct pose_t
+{
+    int64_t utime;              // Timestamp that the actual measurement took
+                                // place, expressed in microseconds since 
+                                // 00:00:00 January 1, 1970 UTC
+
+    double pos[3];              // position x,y,z in meters in local frame
+    double vel[3];              // velocity in m/s, expressed in local frame,
+                                // _NOT_ body frame
+
+    double orientation[4];      // unit quaternion representing the body->local
+                                // rotation.  Rotate {1, 0, 0} by this to get
+                                // the vehicle orientation in the local frame.
+                                //
+                                // Quaternion is specified as (u, x, y, z),
+                                // using the convention that a CCW rotation of
+                                // theta radians about the unit vector 
+                                // (i, j, k) yields the quaternion:
+                                //   u = sin(theta/2)
+                                //   x = i * cos(theta/2)
+                                //   y = j * cos(theta/2)
+                                //   z = k * cos(theta/2)
+
+    double rotation_rate[3];    // angular velocity vector of the vehicle
+                                // in rad/s.  This is expressed in the local
+                                // frame.
+
+    double accel[3];            // Acceleration vector in the local frame in
+                                // m/s/s.  Does not include the gravity vector.
+}

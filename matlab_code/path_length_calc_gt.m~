@@ -1,0 +1,14 @@
+function [path_length,inc_path]=path_length_calc_gt(idx1,idx2)
+path_length=0;
+inc_path = zeros(1,idx2-idx1+1);
+T_gt_1PRE_inc = zeros(4,idx2-idx1+1);
+q_gt_1PRE_inc = zeros(4,idx2-idx1+1);
+for i=idx1:idx2
+    [T_gt_c,q]=calc_gt_in_1pointRANSAC_laser(i,i+1);
+    T_gt_1PRE_inc(i-idx1+1,:) = [T_gt_c;i];
+    q_gt_1PRE_inc(i-idx1+1,:) = [q;i];
+    path_length =  path_length + norm(T_gt_c);
+    inc_path(i-idx1+1)= path_length;
+    i
+end
+path_length

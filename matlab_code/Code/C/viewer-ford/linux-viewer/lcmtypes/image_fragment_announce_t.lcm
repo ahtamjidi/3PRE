@@ -1,0 +1,14 @@
+package lcmtypes;
+
+
+struct image_fragment_announce_t 
+{
+    int64_t utime;
+    int16_t width; 
+    int16_t height;
+    int16_t stride;
+    int32_t pixelformat;
+    int32_t max_data_size;
+    int64_t source_uid;
+    string channel;
+}

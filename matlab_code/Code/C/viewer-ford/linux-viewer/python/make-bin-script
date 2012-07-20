@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# script to create a standalone executable with a pre-set PYTHONPATH from a
+# python script
+
+cat > $1 << EOF
+#!/bin/bash
+export PYTHONPATH=$2
+exec python $3 \$*
+EOF
+
+chmod 755 $1

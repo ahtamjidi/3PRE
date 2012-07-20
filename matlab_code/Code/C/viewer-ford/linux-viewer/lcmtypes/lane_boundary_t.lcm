@@ -1,0 +1,25 @@
+package lcmtypes;
+
+enum lane_boundary_flag_t {
+    // This bit is set if the lane boundary point is valid or not.  This is
+    // inferred mainly from the RNDF and is nominally not set through
+    // intersections and other places we'd expected the boundary to not be
+    // present, and set otherwise
+    VALID = 1, 
+    // this bit is set if the lane tracker actually observed the boundary point
+    // or some other evidence suggesting that the point is present.  It is not 
+    // set if the lane tracker is just making up something plausible.
+    CONFIDENT = 2
+}
+
+struct lane_boundary_t {
+    int32_t npoints;
+
+    // numbered according to RndfBoundaryType
+    int32_t type;
+
+    double points[npoints][2];
+
+    // bitwise combination of lcm_lane_boundary_flag_t
+    int8_t edge_flags[npoints];
+}

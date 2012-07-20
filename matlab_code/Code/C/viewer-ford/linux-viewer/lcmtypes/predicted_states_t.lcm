@@ -1,0 +1,11 @@
+package lcmtypes;
+
+struct predicted_states_t {
+
+    int64_t utime;     // future time
+
+    float  x;         // position
+    float  y;         // position
+    float 	theta;     // the orientation of the car
+    float 	v;         // speed       
+}

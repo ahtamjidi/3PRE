@@ -1,0 +1,27 @@
+package lcmtypes;
+
+enum rrt_turn_signal_t {
+    LEFT = -1, 
+    NONE = 0, 
+    RIGHT = 1
+}
+
+struct rrt_status_t {
+    int64_t utime;
+
+    // Don't want the target within this distance
+    double  min_target_dist;
+
+    // Has a feasible solution. -1 if not running RRT
+    boolean is_feasible;
+    boolean is_feasible_if_no_restricted;
+
+    // Target
+    int64_t goal_id;    // goal_t. -1 if there is no goal
+    boolean is_reachable;
+
+    lcmtypes.rrt_turn_signal_t   turn_advice;    // this is an advice that is meaningful 
+                                        // only in a multi lane situation. The 
+                                        // navigator can choose to ignore.
+}
+

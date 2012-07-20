@@ -1,0 +1,52 @@
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="7,1"> 1</a></span><span class="line"><span class="keyword">function</span> <span class="var type1" id="S2T29U3">r</span> = get_rand(<span class="mxinfo" id="T2:U2"><span class="mxinfo" id="T2:U3"><span class="var type1" id="S3T2U6">N</span></span></span>, <span class="var type1" id="S4T2U7">M</span>, <span class="var type0" id="S5T0U8">seed</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="7,2"> 2</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,3"> 3</a></span><span class="line"><span class="comment">% r = get_rand(N, M, seed)</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,4"> 4</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,5"> 5</a></span><span class="line"><span class="comment">% DESC:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,6"> 6</a></span><span class="line"><span class="comment">% returns a logical vector of length M with N trues uniformly ditributed</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,7"> 7</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,8"> 8</a></span><span class="line"><span class="comment">% VERSION</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,9"> 9</a></span><span class="line"><span class="comment">% 1.0.1</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,10">10</a></span><span class="line"><span class="comment">% </span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,11">11</a></span><span class="line"><span class="comment">% INPUT:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,12">12</a></span><span class="line"><span class="comment">% N             = number of ones</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,13">13</a></span><span class="line"><span class="comment">% M             = number of elements</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,14">14</a></span><span class="line"><span class="comment">% seed          = seed of the random number generator</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,15">15</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,16">16</a></span><span class="line"><span class="comment">% OUTPUT:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,17">17</a></span><span class="line"><span class="comment">% r             = M-dimensional vector with N ones and M-N zeros</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,18">18</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,19">19</a></span><span class="line"><span class="comment">% HISTORY</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,20">20</a></span><span class="line"><span class="comment">% 1.0.0         - ??/??/04 - Initial version</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,21">21</a></span><span class="line"><span class="comment">% 1.0.1         - ??/??/06 - Uses logical indexing</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,22">22</a></span><span class="line"><span class="comment">% 1.0.2         - 06/25/08 - Fixes the seed of the random number generator</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,23">23</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,24">24</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,25">25</a></span><span class="line"><span class="comment">% AUTHOR:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,26">26</a></span><span class="line"><span class="comment">% Marco Zuliani, email: marco.zuliani@gmail.com</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,27">27</a></span><span class="line"><span class="comment">% Copyright (C) 2009 by Marco Zuliani </span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,28">28</a></span><span class="line"><span class="comment">% </span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,29">29</a></span><span class="line"><span class="comment">% LICENSE:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,30">30</a></span><span class="line"><span class="comment">% This toolbox is distributed under the terms of the GNU GPL.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,31">31</a></span><span class="line"><span class="comment">% Please refer to the files COPYING.txt for more information.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,32">32</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,33">33</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,34">34</a></span><span class="line"><span class="comment">% fix the seed of the random number generator</span></span></span>
+<span class="srcline"><span class="lineno"><a href="7,35">35</a></span><span class="line"><span class="keyword">if</span> (nargin == 3) &amp;&amp; ~isempty(<span class="var type0" id="S5T0U20">seed</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="7,36">36</a></span><span class="line">    rand(<span class="string">'twister'</span>, <span class="var type0" id="S5T0U25">seed</span>);</span></span>
+<span class="srcline"><span class="lineno"><a href="7,37">37</a></span><span class="line"><span class="keyword">end</span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="7,38">38</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,39">39</a></span><span class="line"><span class="keyword">if</span> (<span class="mxinfo" id="T6:U6"><span class="var type1" id="S3T2U30">N</span> &gt; <span class="var type1" id="S4T2U31">M</span></span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="7,40">40</a></span><span class="line">    <span class="mxinfo" id="T54:U9">error(<span class="string">'RANSACToolbox:get_rand'</span>, <span class="string">'N should be less or equal than M'</span>)</span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="7,41">41</a></span><span class="line"><span class="keyword">end</span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="7,42">42</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,43">43</a></span><span class="line"><span class="mxinfo" id="T29:U10"><span class="var type1" id="S2T29U39">r</span> = <span class="mxinfo" id="T29:U12">[<span class="mxinfo" id="T55:U13"><span class="mxinfo" id="T6:U14">true</span>(1, <span class="var type1" id="S3T2U45">N</span>)</span> <span class="mxinfo" id="T29:U16"><span class="mxinfo" id="T6:U17">false</span>(1, <span class="mxinfo" id="T2:U18"><span class="mxinfo" id="T2:U19"><span class="var type1" id="S4T2U51">M</span>-<span class="var type1" id="S3T2U52">N</span></span>+<span class="mxinfo" id="T2:U22">1</span></span>)</span>]</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="7,44">44</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,45">45</a></span><span class="line"><span class="mxinfo" id="T16:U23"><span class="var type1" id="S12T16U56">temp</span> = <span class="mxinfo" id="T16:U25">rand(1, <span class="var type1" id="S4T2U60">M</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="7,46">46</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,47">47</a></span><span class="line"><span class="mxinfo" id="T16:U27">[<span class="var type1" id="S13T16U64">dummy</span> <span class="var type1" id="S14T16U65">ind</span>] = sort(<span class="var type1" id="S12T16U68">temp</span>)</span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="7,48">48</a></span><span class="line"><span class="mxinfo" id="T29:U31"><span class="var type1" id="S2T29U71">r</span> = <span class="mxinfo" id="T29:U33"><span class="var type1" id="S2T29U73">r</span>(<span class="var type1" id="S14T16U74">ind</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="7,49">49</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="7,50">50</a></span><span class="line"><span class="keyword">return</span></span></span>
+</pre>

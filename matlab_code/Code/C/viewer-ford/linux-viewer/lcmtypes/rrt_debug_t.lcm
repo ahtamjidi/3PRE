@@ -1,0 +1,20 @@
+package lcmtypes;
+
+struct rrt_debug_t {
+    int64_t             utime;
+    
+    int32_t				num_nodes;
+    int32_t				num_children_root;
+    int32_t				num_committed;
+    int32_t				num_samples;
+    
+    int32_t             num_pred_pts;
+    lcmtypes.predicted_states_t  pred[num_pred_pts];     // predicted trajectory
+    int32_t             num_committed_pts;
+    lcmtypes.predicted_states_t  committed[num_committed_pts];
+    double              target[2];              // target point
+    double              root[2];                // root location
+    
+    int32_t             num_nodes_plot;		// to turn on/off
+    lcmtypes.rrt_debug_node_t	node[num_nodes_plot];
+}

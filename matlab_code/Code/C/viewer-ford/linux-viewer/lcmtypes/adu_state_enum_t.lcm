@@ -1,0 +1,12 @@
+package lcmtypes;
+
+enum adu_state_enum_t {
+	 UNDEFINED = 0, 
+     MANUAL_OVERRIDE, 
+     STOP, 
+     STANDBY, 
+     RUN, 
+     ERROR, 
+     SHIFT
+}
+

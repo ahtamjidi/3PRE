@@ -1,0 +1,62 @@
+package lcmtypes;
+
+enum navigator_loc_type_t {
+    INVALID=0,
+    IN_LANE=1,
+    IN_ZONE=2,
+    IN_INTERSECTION=3,
+    OUTSIDE_COURSE=4,
+    IN_LANE_WRONG_DIR=5,
+}
+
+struct navigator_status_t {
+    int64_t     utime;
+
+    /* A bit-wise ORed set of flags from above.  A bit is set if that
+     * constraint should be active.
+     * NB. navigator constraints now in navigator_constraint_enum_t.lcm
+     */
+    int32_t     constraints_active;
+
+    /* The location type of the car (zone, lane, etc) */
+    lcmtypes.navigator_loc_type_t location;
+
+    /* A list of intersections we expect to encounter soon.  Each
+     * intersection is specified by a waypoint ID suitable for
+     * passing to rndf_overlay_find_waypoint_by_id().  The return value
+     * of that can then be passed to lane_util_get_intersection_polygon()
+     * to get the actual bounding region of the intersection. */
+    int32_t     num_intersections;
+    int32_t     intersections[num_intersections][3];
+
+    /* True when the car is inside the first intersection listed in the
+     * intersection list, above. */
+    boolean     inside_first_intersection;
+
+    /* The bias path, a polyline that follows the center of the lane to
+     * the next goal.  The bias path will start at the point on the
+     * centerline closest the front bumper and continue to the goal. */
+    int32_t     num_bias_points;
+    double      bias_path[num_bias_points][2];
+
+    /* The standoff distance (in meters) from obstacles ahead in our lane */
+    float       standoff_distance;
+
+    /* Is driving in reverse allowed */
+    boolean     allow_reverse;
+
+    /* Hold still if possible, there is oncoming traffic coming. */
+    boolean     hold;
+
+    /* utime from the last cmd message received to allow confirmation */
+    int64_t     cmd_received_utime;
+
+    /* set to true when a k-point turn is needed */
+    boolean     need_kpoint_turn;
+
+    /* Set to true when the rrt is infeasible due to obstacle very close
+     * or other hard constraint.  Restricted zone causing infeasibility will
+     * not set this flag.  It is only set after about 30 seconds of waiting
+     * to break free and not succeeding. */
+    boolean     please_unstick_me;
+}

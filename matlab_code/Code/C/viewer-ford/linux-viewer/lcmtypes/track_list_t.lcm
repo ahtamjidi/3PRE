@@ -1,0 +1,9 @@
+package lcmtypes;
+
+struct track_list_t
+{
+	int64_t utime;
+
+	int32_t ntracks;
+	lcmtypes.track_t tracks[ntracks];
+}

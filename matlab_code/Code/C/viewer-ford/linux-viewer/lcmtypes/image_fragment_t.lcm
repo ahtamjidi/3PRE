@@ -1,0 +1,24 @@
+package lcmtypes;
+
+// image fragment is used by the libcam2 lc blaster unit
+
+struct image_fragment_t
+{
+    int64_t utime;
+
+    // image size and format
+    int16_t width;     
+    int16_t height; 
+    int16_t stride;
+    int32_t pixelformat;
+
+    // total number of fragments
+    int16_t nfragments; 
+
+    // identifies the original image source
+    int64_t source_uid;
+
+    int32_t data_offset;
+    int32_t data_size;
+    byte data[data_size];
+}

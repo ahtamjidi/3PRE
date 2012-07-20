@@ -1,0 +1,8 @@
+package lcmtypes;
+
+struct comment_t
+{
+    int64_t utime; 
+
+    string comment; // text of comment
+}

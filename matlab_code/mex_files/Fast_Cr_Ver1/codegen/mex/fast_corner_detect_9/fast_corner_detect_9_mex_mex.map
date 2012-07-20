@@ -1,0 +1,9 @@
+MEX {
+	global:
+		mexFunction;
+		fast_corner_detect_9;
+		fast_corner_detect_9_initialize;
+		fast_corner_detect_9_terminate;
+	local:
+		*;
+};

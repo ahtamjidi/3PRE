@@ -1,0 +1,8 @@
+package lcmtypes;
+
+struct lane_clines_t {
+    int64_t utime;
+    int32_t nclines;
+    lcmtypes.pointlist2d_t clines[nclines];
+    double scores[nclines];
+}

@@ -1,0 +1,15 @@
+package lcmtypes;
+
+// the image_lcsync_t message is used to synchronize a camera logfile with an
+// LC logfile.  Each time an image is captured by libcam2 and passed through
+// filter_logger, an image_lcsync_t is published.  When replaying camera logs
+// synchronized to the playback of an LC logfile, the input_log unit in libcam2
+// listens for image_lcsync_t messages
+
+struct image_lcsync_t
+{
+    // timestamp at which image was captured
+    int64_t utime;
+    // image source identifier
+    int64_t source_uid;
+}

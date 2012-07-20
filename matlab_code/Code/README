@@ -1,0 +1,74 @@
+These functions are being made available for easy access and visualization 
+of the "Ford Campus Vision and Laser dataset".  
+You may not copy, sell or redistribute this software in whole or in part 
+without permission of the author. For further details, contact Gaurav Pandey 
+at pgaurav@umich.edu.
+
+THE AUTHOR MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND
+CONCERNING THIS SOFTWARE.
+
+Here in this README we describe the various utility functions provided with this dataset.  
+Download the tar files containing data and code (i.e. dataset.tgz and Code.tgz)
+Unzip the dataset.tgz file to get the following files and folders under the main directory-:
+Folders-: SCANS, IMAGES, LCM, VELODYNE.
+Files-: Timestamp.log, Pose-Applanix.log, Pose-Mtig.log, Gps.log, PARAM.mat
+
+The main files and folders are described below:
+1)LCM:This folder contains the LCM log file corresponding to each trial. Each LCM log file contains
+  the raw 3D point cloud from the velodyne laser scanner, the lidar data from Reigal LMS-Q120 and
+  the navigational data from the navigational sensors described in section II. We provide software to
+  playback this log file and visualize the data in an interactive graphical user interface.
+2)Timestamp.log: This file contains the unix timesamp, measured in microseconds since 00:00:00
+  Jan 1, 1970 UTC, of each image captured by the omnidirectional camera during one trial.
+3)Pose-Applanix.log: This file contains the 6DOF pose of the vehicle along with the timestamp pro-
+  vided by the Applanix POS-LV 420 INS, during one trial.
+4)Pose-Mtig.log: This file contains the 6DOF pose of the vehicle along with the timestamp provided
+  by the Xens MTiG, during one trial.
+5)Gps.log: This file contains the GPS data (latitude/longitude/attitude) of the vehicle provided by
+  the Trimble GPS, during one trial.
+6)IMAGES: This folder contains the undistorted images captured from the omnidirectional camera
+  system during one trial. The folder is further divided into sub-folders containing images corre-
+  sponding to individual camera of the omnidirectional camera system. This folder also contains a
+  folder named "FULL" which contains the undistorted images stacked together in one file
+7)PARAM.mat: This contains the intrinsic and extrinsic parameters of the omnidirectional camera
+  system. This is a (1 x 5) array of structures with following fields:
+      a) PARAM.K: is the (3 x 3) matrix of the internal parameters of the camera.
+      b) PARAM.R, PARAM.t: are the (3 x 3) rotation matrix and (3 x 1) translation vector
+         respectively which transforms the 3D pointcloud from laser reference system to camera
+         reference system.
+      c) PARAM.MappingMatrix: contains the mapping between the distorted and undis-
+         torted image pixels. This mapping is provided by the manufacturers of the Ladybug3
+         camera system and it corrects the spherical distortion in the image. 
+8) SCANS: This folder contains 3D scans from the Velodyne laser scanner, motion compensated by
+   the vehicle pose provided by Applanix POS-LV 420 INS. Each scan file in this folder is a MAT-
+   LAB file (.mat) which can be easily loaded into the MATLAB workspace. The structure of individual
+   scan once loaded in MATLAB is shown below:
+     a) Scan.XYZ: is an array (3 x N ) of motion compensated 3D point cloud represented in
+        Velodyne's reference frame. Here N is the number of points per scan which is typically 80,000-1,00,000.
+     b) Scan.timestamp laser: is the unix timestamp measured in microseconds since 00:00:00 Jan
+        1, 1970 UTC for the scan captured by the Velodyne laser scanner.
+     c) Scan.timestamp camera: is the unix timestamp measured in microseconds since
+        00:00:00 Jan 1, 1970 UTC for the closest image captured by the omnidirectional camera.
+     d) Scan.image index: is the index of the image which is closest in time to this scan.
+     e) Scan.X wv: is the 6DOF pose of the vehicle in world reference system when the scan was captured.
+     f) Scan.Cam: is a (1 x 5) array of structures corresponding to each camera of the omnidi-
+        rectional camera system. The format of this structure is given below:
+        i) Scan.Cam.points index: is a (1 x m) array of index of the 3D points in laser reference frame, 
+           in the ﬁeld of view of the camera.
+       ii) Scan.Cam.xyz: is a (3 x m) array of 3D points (m < N ) in camera reference
+           system, in the ﬁeld of view of the camera.
+      iii) Scan.Cam.pixels: This is a (2 x m) array of pixel coordinates corresponding to the
+           3D points projected onto the camera.
+9) VELODYNE: This folder has several ".pcap" files containing the raw 3D point cloud from velodyne
+   laser scanner in a format which can be played back at desired frame rate using our playback tool. This
+   allows the user to quickly browse through the data corresponding to a single trial.
+
+Unzip the Code.tgz file. It should have two folders "C" and "MATLAB" containing the utility functions.
+
+"C"-: This folder contains the viewer source code for the visulization of the LCM log files available under the "LCM" folder. This code has been modified 
+from the linux-viewer used to visualize the MIT DGC dataset. So to use this viewer one needs to download the lcm-logplayer from (http://lcm.googlecode.com).
+User can playback the log files using the lcm-logplayer and the viewer provided here allows the user to render the textured point cloud. 
+The compilation instructions about the viewer are available in the README inside the folder Code/C/viewer-ford. 
+
+"MATLAB"-: This folder contains the MATLAB utility functions to play around with the dataset. The details about the functions are given in the README file inside
+Code/MATLAB/  

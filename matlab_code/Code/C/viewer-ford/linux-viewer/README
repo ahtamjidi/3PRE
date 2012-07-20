@@ -1,0 +1,76 @@
+Ford Vision and Laser Dataset Log File Viewer
+==============================================
+
+
+REQUIREMENTS
+============
+    OpenGL, GLU, GLUT
+    GTK+ >= 2.12
+    zlib
+    libjpeg
+    Python >= 2.3
+    Java 2 SE >= 1.5
+    gcc
+    make
+    Apache Ant
+    LCM >= 0.0.2  with Python and Java bindings installed
+                  (http://lcm.googlecode.com) 
+
+    This software was developed on Ubuntu 7.04 and Fedora Core 7
+
+    For Debian/Ubuntu, the following packages should be sufficient:
+        libgtk2.0-dev python-dev sun-java5-jdk gcc make mesa-common-dev 
+        freeglut3-dev libc6-dev libglu1-mesa-dev libjpeg62-dev zlib1g-dev ant
+ 
+INSTRUCTIONS
+============
+
+Running the 'make' command should build all components of the system. Following 
+executables should be placed in the 'bin' directory:
+
+bin/viewer            -- primary data visualization tool
+
+bin/ppms2mpeg4        -- tool for converting video clips produced by the viewer
+                         into MPEG-4 video files.  Requires ffmpeg
+
+
+To view a log file (distributed separately), use the lcm-logplayer-gui command
+(distributed with lcm)
+
+    $ lcm-logplayer-gui <logfile>
+
+Then, in a separate terminal, run the viewer
+
+    $ bin/viewer
+
+
+A listing of all publicly available log files can be found at:
+	http://robots.engin.umich.edu/SoftwareData/Ford
+
+NOTES
+=====
+
+bin/viewer is capable of recording video clips.  Select the desired frame rate
+and click the "Record" button.  Files will be saved to the current directory,
+with the extension ".ppms.gz"  Recorded clips consist of a list of PPM files
+one after another, all in the same file, and gzipped (hence the name ppms.gz)
+
+To convert a viewer-recorded clip to a standard video format, use ffmpeg, 
+the bin/ppms2mpeg4 script, or a variant thereof.
+
+
+LICENSE
+=======
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.

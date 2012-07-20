@@ -1,0 +1,8 @@
+package lcmtypes;
+
+enum navigator_constraint_enum_t {
+    CENTER_LINE=0x0001,
+    SIDE_LINE=0x0002,
+    DASHED_LINE=0x0004
+}
+

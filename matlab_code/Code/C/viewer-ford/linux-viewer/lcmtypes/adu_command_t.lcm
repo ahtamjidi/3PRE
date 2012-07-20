@@ -1,0 +1,34 @@
+package lcmtypes;
+
+struct adu_command_t
+{
+    int64_t utime;
+
+    int32_t gas_mv;   // gas millivolts
+    int32_t gas_rate_mv_per_s; // slew rate (mV/second), always positive
+                               // use 0 for maximum rate
+
+    int32_t steer_mv; // steer millivolts
+    int32_t steer_rate_mv_per_s; // slew rate (mV/second), always positive
+                                 // use 0 for maximum rate
+
+    // The desired position of the shifter.  Controller/planner should
+    // continuously resend this message.  If "shift_target" is changed,
+    // the adu_status_t message should be monitored to detect
+    // when the shift is completed.  Set shift_enable to true for the
+    // change in shift_target to be acted upon.  When false,
+    // "shift_target" is ignored.  Wait for the shift to finish before
+    // setting "shift_enable" to false again.  Do not change
+    // "shift_target" while "shift_enable" is true.
+    //
+    // It is an error if shift_target is not equal to the actual
+    // shift position unless the car is stopped, brakes are applied,
+    // and shift_enable is true.  "An error" means that the ADU will
+    // not act upon the command.
+    //
+    // Very important:  Brake must be depressed and car stationary in
+    // order to shift.
+
+    lcmtypes.shift_enum_t shift_target;
+    boolean shift_enable;
+}	

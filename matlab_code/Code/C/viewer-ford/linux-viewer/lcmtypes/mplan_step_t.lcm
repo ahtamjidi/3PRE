@@ -1,0 +1,26 @@
+package lcmtypes;
+
+struct mplan_step_t
+{
+	// time at which this step is predicted to begin
+	int64_t utime;
+
+	// distance that the vehicle has covered between reference_utime
+	// and the beginning of this step.
+	double reference_distance;
+
+	// total distance (m) of this segment
+	double length;
+
+	// dtheta per distance traveled at end of segment.  dtdl is
+	// linearly varied over length from the previous
+	// mplan_step. Dtheta, in this case, refers to the heading of
+	// the center of the rear axle (not the angle of the front
+	// wheels).
+	double dtdl;
+	
+	// target speed by the end of step (m/s)
+	double speed;
+	double tau_nominal, tau_max;
+	double accel_max;
+}

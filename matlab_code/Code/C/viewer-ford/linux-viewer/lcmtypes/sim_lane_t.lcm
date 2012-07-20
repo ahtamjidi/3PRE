@@ -1,0 +1,8 @@
+package lcmtypes;
+
+struct sim_lane_t
+{
+	int32_t num_points;
+	double  x[num_points];
+	double  y[num_points];
+}

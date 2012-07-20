@@ -1,0 +1,14 @@
+package lcmtypes;
+
+struct lane_velocity_advice_t
+{
+	int64_t utime;
+
+	// how far, in meters, to our nearest reliable control point?
+	// if 0, we have no particular advice (go fast). If large, speed should be decreased.
+	double  distance_to_lock;
+	double  segment_distance;
+	double  uncertain_lane_width; 
+
+	int32_t is_two_way;
+}

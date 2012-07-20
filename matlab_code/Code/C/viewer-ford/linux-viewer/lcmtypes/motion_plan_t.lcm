@@ -1,0 +1,10 @@
+package lcmtypes;
+
+struct motion_plan_t
+{
+    int64_t utime; 
+
+    int32_t n;
+    lcmtypes.motion_plan_action_t actions[n];
+}	
+

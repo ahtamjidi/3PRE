@@ -1,0 +1,136 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - corrcoef.c </TITLE>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT="#1122aa" ONLOAD="if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window);}">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///home/amirhossein/Desktop/Current_Work/april_2012/SR4000/EKF_monoSLAM_1pRANSAC/matlab_code/mex_files/CorePar_Ver1/codegen/mex/corrcoef_partitioned/corrcoef.c" TARGET="rtwreport_document_frame">/home/amirhossein/Desktop/Current_Work/april_2012/SR4000/EKF_monoSLAM_1pRANSAC/matlab_code/mex_files/CorePar_Ver1/codegen/mex/corrcoef_partitioned/corrcoef.c</A></H4>
+<PRE id="RTWcode">
+<FONT COLOR="#888888"><I>    1   </I></FONT><FONT COLOR="#117755"><I>/*</I></FONT>
+<FONT COLOR="#888888"><I>    2   </I></FONT><FONT COLOR="#117755"><I> * corrcoef.c</I></FONT>
+<FONT COLOR="#888888"><I>    3   </I></FONT><FONT COLOR="#117755"><I> *</I></FONT>
+<FONT COLOR="#888888"><I>    4   </I></FONT><FONT COLOR="#117755"><I> * Code generation for function 'corrcoef'</I></FONT>
+<FONT COLOR="#888888"><I>    5   </I></FONT><FONT COLOR="#117755"><I> *</I></FONT>
+<FONT COLOR="#888888"><I>    6   </I></FONT><FONT COLOR="#117755"><I> * C source code generated on: Wed May  2 02:54:19 2012</I></FONT>
+<FONT COLOR="#888888"><I>    7   </I></FONT><FONT COLOR="#117755"><I> *</I></FONT>
+<FONT COLOR="#888888"><I>    8   </I></FONT><FONT COLOR="#117755"><I> */</I></FONT>
+<FONT COLOR="#888888"><I>    9   </I></FONT>
+<FONT COLOR="#888888"><I>   10   </I></FONT><FONT COLOR="#117755"><I>/* Include files */</I></FONT>
+<FONT COLOR="#888888"><I>   11   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;rt_nonfinite.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   12   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;corrcoef_partitioned.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   13   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;corrcoef.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   14   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;sign.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   15   </I></FONT>
+<FONT COLOR="#888888"><I>   16   </I></FONT><FONT COLOR="#117755"><I>/* Type Definitions */</I></FONT>
+<FONT COLOR="#888888"><I>   17   </I></FONT>
+<FONT COLOR="#888888"><I>   18   </I></FONT><FONT COLOR="#117755"><I>/* Named Constants */</I></FONT>
+<FONT COLOR="#888888"><I>   19   </I></FONT>
+<FONT COLOR="#888888"><I>   20   </I></FONT><FONT COLOR="#117755"><I>/* Variable Declarations */</I></FONT>
+<FONT COLOR="#888888"><I>   21   </I></FONT>
+<FONT COLOR="#888888"><I>   22   </I></FONT><FONT COLOR="#117755"><I>/* Variable Definitions */</I></FONT>
+<FONT COLOR="#888888"><I>   23   </I></FONT>
+<FONT COLOR="#888888"><I>   24   </I></FONT><FONT COLOR="#117755"><I>/* Function Declarations */</I></FONT>
+<FONT COLOR="#888888"><I>   25   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>void</B></FONT> <A HREF="corrcoef_c.html#fcn_cov_to_corrcoef" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_cov_to_corrcoef');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">cov_to_corrcoef</FONT></A>(real_T r_data[25010001], int32_T r_sizes[2]);
+<FONT COLOR="#888888"><I>   26   </I></FONT>
+<FONT COLOR="#888888"><I>   27   </I></FONT><FONT COLOR="#117755"><I>/* Function Definitions */</I></FONT>
+<FONT COLOR="#888888"><I>   28   </I></FONT>
+<FONT COLOR="#888888"><I>   29   </I></FONT><FONT COLOR="#117755"><I>/*</I></FONT>
+<FONT COLOR="#888888"><I>   30   </I></FONT><FONT COLOR="#117755"><I> * </I></FONT>
+<FONT COLOR="#888888"><I>   31   </I></FONT><FONT COLOR="#117755"><I> */</I></FONT>
+<FONT COLOR="#888888"><I>   32   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>void</B></FONT> <A NAME="fcn_cov_to_corrcoef">cov_to_corrcoef</A>(real_T r_data[25010001], int32_T r_sizes[2])
+<FONT COLOR="#888888"><I>   33   </I></FONT><B>{</B>
+<FONT COLOR="#888888"><I>   34   </I></FONT>    int32_T m;
+<FONT COLOR="#888888"><I>   35   </I></FONT>    int32_T k;
+<FONT COLOR="#888888"><I>   36   </I></FONT>    real_T d_data[5001];
+<FONT COLOR="#888888"><I>   37   </I></FONT>    int32_T i;
+<FONT COLOR="#888888"><I>   38   </I></FONT>    real_T absrij;
+<FONT COLOR="#888888"><I>   39   </I></FONT>    m = r_sizes[0];
+<FONT COLOR="#888888"><I>   40   </I></FONT>    <FONT COLOR="#112266"><B>for</B></FONT> (k = 0; k + 1 &lt;= m; k++) <B>{</B>
+<FONT COLOR="#888888"><I>   41   </I></FONT>        d_data[k] = muDoubleScalarSqrt(r_data[k + r_sizes[0] * k]);
+<FONT COLOR="#888888"><I>   42   </I></FONT>    <B>}</B>
+<FONT COLOR="#888888"><I>   43   </I></FONT>    <FONT COLOR="#112266"><B>for</B></FONT> (k = 0; k + 1 &lt;= m; k++) <B>{</B>
+<FONT COLOR="#888888"><I>   44   </I></FONT>        <FONT COLOR="#112266"><B>for</B></FONT> (i = k + 1; i + 1 &lt;= m; i++) <B>{</B>
+<FONT COLOR="#888888"><I>   45   </I></FONT>            r_data[i + r_sizes[0] * k] = r_data[i + r_sizes[0] * k] / d_data[i] / d_data[k];
+<FONT COLOR="#888888"><I>   46   </I></FONT>        <B>}</B>
+<FONT COLOR="#888888"><I>   47   </I></FONT>        <FONT COLOR="#112266"><B>for</B></FONT> (i = k + 1; i + 1 &lt;= m; i++) <B>{</B>
+<FONT COLOR="#888888"><I>   48   </I></FONT>            absrij = muDoubleScalarAbs(r_data[i + r_sizes[0] * k]);
+<FONT COLOR="#888888"><I>   49   </I></FONT>            <FONT COLOR="#112266"><B>if</B></FONT> (absrij &gt; 1.0) <B>{</B>
+<FONT COLOR="#888888"><I>   50   </I></FONT>                r_data[i + r_sizes[0] * k] /= absrij;
+<FONT COLOR="#888888"><I>   51   </I></FONT>            <B>}</B>
+<FONT COLOR="#888888"><I>   52   </I></FONT>            r_data[k + r_sizes[0] * i] = r_data[i + r_sizes[0] * k];
+<FONT COLOR="#888888"><I>   53   </I></FONT>        <B>}</B>
+<FONT COLOR="#888888"><I>   54   </I></FONT>        <FONT COLOR="#112266"><B>if</B></FONT> (r_data[k + r_sizes[0] * k] &gt; 0.0) <B>{</B>
+<FONT COLOR="#888888"><I>   55   </I></FONT>            <A HREF="sign_c.html#fcn_b_sign" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_sign');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">b_sign</FONT></A>(&amp;r_data[k + r_sizes[0] * k]);
+<FONT COLOR="#888888"><I>   56   </I></FONT>        <B>}</B> <FONT COLOR="#112266"><B>else</B></FONT> <B>{</B>
+<FONT COLOR="#888888"><I>   57   </I></FONT>            r_data[k + r_sizes[0] * k] = rtNaN;
+<FONT COLOR="#888888"><I>   58   </I></FONT>        <B>}</B>
+<FONT COLOR="#888888"><I>   59   </I></FONT>    <B>}</B>
+<FONT COLOR="#888888"><I>   60   </I></FONT><B>}</B>
+<FONT COLOR="#888888"><I>   61   </I></FONT>
+<FONT COLOR="#888888"><I>   62   </I></FONT><FONT COLOR="#117755"><I>/*</I></FONT>
+<FONT COLOR="#888888"><I>   63   </I></FONT><FONT COLOR="#117755"><I> * </I></FONT>
+<FONT COLOR="#888888"><I>   64   </I></FONT><FONT COLOR="#117755"><I> */</I></FONT>
+<FONT COLOR="#888888"><I>   65   </I></FONT><FONT COLOR="#112266"><B>void</B></FONT> <A NAME="fcn_corrcoef">corrcoef</A>(<A HREF="corrcoef_partitioned_types_h.html#type_corrcoef_partitionedStackData" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_corrcoef_partitionedStackData')" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">corrcoef_partitionedStackData</FONT></A> *SD, <FONT COLOR="#112266"><B>const</B></FONT> real_T x_data[1100220], <FONT COLOR="#112266"><B>const</B></FONT> int32_T x_sizes[2], real_T r_data[25010001], int32_T r_sizes[2])
+<FONT COLOR="#888888"><I>   66   </I></FONT><B>{</B>
+<FONT COLOR="#888888"><I>   67   </I></FONT>    int32_T loop_ub;
+<FONT COLOR="#888888"><I>   68   </I></FONT>    int32_T fm;
+<FONT COLOR="#888888"><I>   69   </I></FONT>    int16_T unnamed_idx_0;
+<FONT COLOR="#888888"><I>   70   </I></FONT>    int16_T unnamed_idx_1;
+<FONT COLOR="#888888"><I>   71   </I></FONT>    real_T d;
+<FONT COLOR="#888888"><I>   72   </I></FONT>    int32_T i;
+<FONT COLOR="#888888"><I>   73   </I></FONT>    int32_T k;
+<FONT COLOR="#888888"><I>   74   </I></FONT>    loop_ub = x_sizes[0] * x_sizes[1] - 1;
+<FONT COLOR="#888888"><I>   75   </I></FONT>    <FONT COLOR="#112266"><B>for</B></FONT> (fm = 0; fm &lt;= loop_ub; fm++) <B>{</B>
+<FONT COLOR="#888888"><I>   76   </I></FONT>        SD-&gt;f0.x_data[fm] = x_data[fm];
+<FONT COLOR="#888888"><I>   77   </I></FONT>    <B>}</B>
+<FONT COLOR="#888888"><I>   78   </I></FONT>    unnamed_idx_0 = (int16_T)x_sizes[1];
+<FONT COLOR="#888888"><I>   79   </I></FONT>    unnamed_idx_1 = (int16_T)x_sizes[1];
+<FONT COLOR="#888888"><I>   80   </I></FONT>    r_sizes[0] = unnamed_idx_0;
+<FONT COLOR="#888888"><I>   81   </I></FONT>    r_sizes[1] = unnamed_idx_1;
+<FONT COLOR="#888888"><I>   82   </I></FONT>    loop_ub = unnamed_idx_0 * unnamed_idx_1 - 1;
+<FONT COLOR="#888888"><I>   83   </I></FONT>    <FONT COLOR="#112266"><B>for</B></FONT> (fm = 0; fm &lt;= loop_ub; fm++) <B>{</B>
+<FONT COLOR="#888888"><I>   84   </I></FONT>        r_data[fm] = 0.0;
+<FONT COLOR="#888888"><I>   85   </I></FONT>    <B>}</B>
+<FONT COLOR="#888888"><I>   86   </I></FONT>    <FONT COLOR="#112266"><B>if</B></FONT> (x_sizes[0] &lt; 2) <B>{</B>
+<FONT COLOR="#888888"><I>   87   </I></FONT>        r_sizes[0] = unnamed_idx_0;
+<FONT COLOR="#888888"><I>   88   </I></FONT>        r_sizes[1] = unnamed_idx_1;
+<FONT COLOR="#888888"><I>   89   </I></FONT>        loop_ub = unnamed_idx_0 * unnamed_idx_1 - 1;
+<FONT COLOR="#888888"><I>   90   </I></FONT>        <FONT COLOR="#112266"><B>for</B></FONT> (fm = 0; fm &lt;= loop_ub; fm++) <B>{</B>
+<FONT COLOR="#888888"><I>   91   </I></FONT>            r_data[fm] = rtNaN;
+<FONT COLOR="#888888"><I>   92   </I></FONT>        <B>}</B>
+<FONT COLOR="#888888"><I>   93   </I></FONT>    <B>}</B> <FONT COLOR="#112266"><B>else</B></FONT> <B>{</B>
+<FONT COLOR="#888888"><I>   94   </I></FONT>        <FONT COLOR="#112266"><B>for</B></FONT> (loop_ub = 0; loop_ub + 1 &lt;= x_sizes[1]; loop_ub++) <B>{</B>
+<FONT COLOR="#888888"><I>   95   </I></FONT>            d = 0.0;
+<FONT COLOR="#888888"><I>   96   </I></FONT>            <FONT COLOR="#112266"><B>for</B></FONT> (i = 1; i &lt;= x_sizes[0]; i++) <B>{</B>
+<FONT COLOR="#888888"><I>   97   </I></FONT>                d += SD-&gt;f0.x_data[(i + x_sizes[0] * loop_ub) - 1];
+<FONT COLOR="#888888"><I>   98   </I></FONT>            <B>}</B>
+<FONT COLOR="#888888"><I>   99   </I></FONT>            d /= (real_T)x_sizes[0];
+<FONT COLOR="#888888"><I>  100   </I></FONT>            <FONT COLOR="#112266"><B>for</B></FONT> (i = 0; i + 1 &lt;= x_sizes[0]; i++) <B>{</B>
+<FONT COLOR="#888888"><I>  101   </I></FONT>                SD-&gt;f0.x_data[i + x_sizes[0] * loop_ub] -= d;
+<FONT COLOR="#888888"><I>  102   </I></FONT>            <B>}</B>
+<FONT COLOR="#888888"><I>  103   </I></FONT>        <B>}</B>
+<FONT COLOR="#888888"><I>  104   </I></FONT>        fm = x_sizes[0] - 1;
+<FONT COLOR="#888888"><I>  105   </I></FONT>        <FONT COLOR="#112266"><B>for</B></FONT> (loop_ub = 0; loop_ub + 1 &lt;= x_sizes[1]; loop_ub++) <B>{</B>
+<FONT COLOR="#888888"><I>  106   </I></FONT>            d = 0.0;
+<FONT COLOR="#888888"><I>  107   </I></FONT>            <FONT COLOR="#112266"><B>for</B></FONT> (k = 0; k + 1 &lt;= x_sizes[0]; k++) <B>{</B>
+<FONT COLOR="#888888"><I>  108   </I></FONT>                d += SD-&gt;f0.x_data[k + x_sizes[0] * loop_ub] * SD-&gt;f0.x_data[k + x_sizes[0] * loop_ub];
+<FONT COLOR="#888888"><I>  109   </I></FONT>            <B>}</B>
+<FONT COLOR="#888888"><I>  110   </I></FONT>            r_data[loop_ub + r_sizes[0] * loop_ub] = d / (real_T)fm;
+<FONT COLOR="#888888"><I>  111   </I></FONT>            <FONT COLOR="#112266"><B>for</B></FONT> (i = loop_ub + 1; i + 1 &lt;= x_sizes[1]; i++) <B>{</B>
+<FONT COLOR="#888888"><I>  112   </I></FONT>                d = 0.0;
+<FONT COLOR="#888888"><I>  113   </I></FONT>                <FONT COLOR="#112266"><B>for</B></FONT> (k = 0; k + 1 &lt;= x_sizes[0]; k++) <B>{</B>
+<FONT COLOR="#888888"><I>  114   </I></FONT>                    d += SD-&gt;f0.x_data[k + x_sizes[0] * i] * SD-&gt;f0.x_data[k + x_sizes[0] * loop_ub];
+<FONT COLOR="#888888"><I>  115   </I></FONT>                <B>}</B>
+<FONT COLOR="#888888"><I>  116   </I></FONT>                r_data[i + r_sizes[0] * loop_ub] = d / (real_T)fm;
+<FONT COLOR="#888888"><I>  117   </I></FONT>            <B>}</B>
+<FONT COLOR="#888888"><I>  118   </I></FONT>        <B>}</B>
+<FONT COLOR="#888888"><I>  119   </I></FONT>    <B>}</B>
+<FONT COLOR="#888888"><I>  120   </I></FONT>    <A HREF="corrcoef_c.html#fcn_cov_to_corrcoef" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_cov_to_corrcoef');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">cov_to_corrcoef</FONT></A>(r_data, r_sizes);
+<FONT COLOR="#888888"><I>  121   </I></FONT><B>}</B>
+<FONT COLOR="#888888"><I>  122   </I></FONT><FONT COLOR="#117755"><I>/* End of code generation (corrcoef.c) */</I></FONT>
+<FONT COLOR="#888888"><I>  123   </I></FONT></PRE>
+</TD></TR></TABLE>
+</P>
+</BODY>
+</HTML>

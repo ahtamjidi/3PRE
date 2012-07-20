@@ -1,0 +1,19 @@
+package lcmtypes;
+
+struct lcplot_figure_t
+{
+	string         name;        // title
+	string         xlegend, ylegend;   // legends
+
+	double         bounds[4];    // size of axes, just like matlab [xmin xmax ymin ymax]
+	boolean        auto_scale; // set to one if you don't want to provide an axis.
+	boolean        axis_equal; // force 1:1 aspect ratio on plot 
+
+	double         grid[2];    // dimensions of grid in x/y direction. set to zero for no grid
+	double         grid_color[3];
+
+	double         background_color[3];
+
+	int32_t        num_datas;
+	lcmtypes.lcplot_data_t  datas[num_datas];
+}

@@ -1,0 +1,2 @@
+function [rot, tran]=lsf_3dps(ps1, ps2)
+

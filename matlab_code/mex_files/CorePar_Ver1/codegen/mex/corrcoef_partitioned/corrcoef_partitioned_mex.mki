@@ -1,0 +1,20 @@
+# Make settings for corrcoef_partitioned
+CC=gcc
+CFLAGS=-ansi -D_GNU_SOURCE -fPIC -pthread -m32  -fexceptions -D_FILE_OFFSET_BITS=64
+CLIBS=-Wl,-rpath-link,/opt/matlab/R2011a/bin/glnx86 -L/opt/matlab/R2011a/bin/glnx86 -lmx -lmex -lmat -lm -lstdc++
+COPTIMFLAGS=-O -DNDEBUG
+CDEBUGFLAGS=-g
+CXX=g++
+CXXFLAGS=-ansi -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -fPIC -pthread
+CXXLIBS=-Wl,-rpath-link,/opt/matlab/R2011a/bin/glnx86 -L/opt/matlab/R2011a/bin/glnx86 -lmx -lmex -lmat -lm
+CXXOPTIMFLAGS=-O -DNDEBUG
+CXXDEBUGFLAGS=-g
+LD=gcc
+LDFLAGS=-pthread -shared -m32 -Wl,--version-script,/opt/matlab/R2011a/extern/lib/glnx86/mexFunction.map -Wl,--no-undefined
+LDOPTIMFLAGS=-O
+LDDEBUGFLAGS=-g
+Arch=glnx86
+OMPFLAGS=
+OMPLINKFLAGS=
+EMC_COMPILER=unix
+EMC_CONFIG=optim

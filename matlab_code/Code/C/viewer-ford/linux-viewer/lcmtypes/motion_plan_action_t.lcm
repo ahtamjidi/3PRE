@@ -1,0 +1,10 @@
+package lcmtypes;
+
+struct motion_plan_action_t {
+    int64_t time;         // absolute time at which this action is to happen
+
+    double speed;          // initial speed
+    double x;              // initial x coordinate
+    double y;              // initial y coordinate
+    lcmtypes.shift_enum_t dir;   // gear indicator
+}

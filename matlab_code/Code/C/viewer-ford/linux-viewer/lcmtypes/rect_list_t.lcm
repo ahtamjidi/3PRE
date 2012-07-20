@@ -1,0 +1,13 @@
+package lcmtypes;
+
+struct rect_list_t
+{
+    int64_t utime;
+
+    // offset of all the rects that follow
+    // (rect_t uses floats to save space)
+    double xy[2];
+
+    int32_t num_rects;
+    lcmtypes.rect_t rects[num_rects];
+}

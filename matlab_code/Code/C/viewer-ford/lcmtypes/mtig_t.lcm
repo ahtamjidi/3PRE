@@ -1,0 +1,55 @@
+package lcmtypes;
+
+struct mtig_t
+{
+    // (originally an unsigned type) types marked with '// (originally an unsigned type)'
+    int64_t         ts_unix;                   // seconds // (originally an unsigned type) (time_t)
+    int64_t         ts_packet;                 // ms // (originally an unsigned type)
+    int64_t         ts_rtc;                    // ms // (originally an unsigned type)
+
+    int16_t         status;                    // bitfield (7:xkf+gps; 5:xkf, no gps; 1: no xkf, no gps) // (originally an unsigned type)
+
+    int16_t         sample_counter;            // counts since start // (originally an unsigned type)
+
+    double          eul_roll;                  // deg
+    double          eul_pitch;                 // deg
+    double          eul_yaw;                   // deg
+
+    double          acc_x;                     // m/s2
+    double          acc_y;                     // m/s2
+    double          acc_z;                     // m/s2
+
+    double          gyr_p;                     // rad/s
+    double          gyr_q;                     // rad/s
+    double          gyr_r;                     // rad/s
+
+    double          mag_x;                     // arbitrary units
+    double          mag_y;                     // arbitrary units
+    double          mag_z;                     // arbitrary units
+
+    double          pos_lat;                   // deg
+    double          pos_lon;                   // deg
+    double          pos_alt;                   // m above spheroid
+
+    double          vel_n;                     // m/s
+    double          vel_e;                     // m/s
+    double          vel_d;                     // m/s
+
+    double          rawgps_pressure;           // pascals // (originally an unsigned type)
+    int16_t         rawgps_pressureage;        // bitfield // (originally an unsigned type)
+    int64_t         rawgps_timeofweek;         // ms // (originally an unsigned type)
+    double          rawgps_pos_lat;            // deg
+    double          rawgps_pos_lon;            // deg
+    double          rawgps_pos_alt;            // m
+    double          rawgps_vel_n;              // m/s
+    double          rawgps_vel_e;              // m/s
+    double          rawgps_vel_d;              // m/s
+    double          rawgps_accuracy_horiz;     // m // (originally an unsigned type)
+    double          rawgps_accuracy_vert;      // m // (originally an unsigned type)
+    double          rawgps_accuracy_speed;     // m/s // (originally an unsigned type)
+    int16_t         rawgps_dataage;            // bitfield // (originally an unsigned type)
+
+    int8_t	    publish_contains;	       // message fields contained in the lcm publish
+					       // see mtig_constants.h for more info
+}
+

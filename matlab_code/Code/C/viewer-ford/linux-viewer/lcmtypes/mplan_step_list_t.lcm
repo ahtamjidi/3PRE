@@ -1,0 +1,14 @@
+package lcmtypes;
+
+struct mplan_step_list_t
+{
+	// time that the plan was published
+	int64_t utime;
+
+	// the point in time that corresponds to 
+	// reference_distance = 0
+	int64_t reference_utime;
+
+	int32_t num_steps;
+	lcmtypes.mplan_step_t steps[num_steps];
+}

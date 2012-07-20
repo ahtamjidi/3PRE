@@ -1,0 +1,46 @@
+package lcmtypes;
+
+struct controller_aux_t {
+    int64_t utime;
+
+    lcmtypes.controller_state_enum_t state;      // controller mode
+    int32_t safety_status;              // safety status
+    double  u_speed;                    // speed control signal
+    double  steer_angle;                // steer control signal
+
+    double  v_cmd;                      // reference speed command
+    double  a_cmd;                      // reference acceleration command
+    double  v_act;                      // current measured speed
+    double  a_act;                      // current measured acceleration
+    double  v_cmd_va;                   // speed limited by velocity advisor 
+                                        // actually used as reference
+    double  a_cmd_va;                   // acceleration actually used as 
+                                        // reference
+
+    double  pp_L1_dist;                 // L1 look-ahead distance
+    double  pp_L1[2];                   // L1 look-ahead point
+    double  pp_anchor[2];               // L1 look-ahead anchor point
+
+    double  sc_proportional;            // speed control proportional term
+    double  sc_integral;                // speed control integral term
+    double  sc_derivative;              // speed control derivative term
+
+    double  begin_seg_pt[2];            // first point of interpolation segment
+    double  end_seg_pt[2];              // second point of interpolation 
+                                        // segment
+    double  int_ref_pt[2];              // interpolation reference point
+    double  int_seg_pt[2];              // interpolated point
+
+    double  v_long_filt;                // filtered longitudinal velocity
+    double  a_long_filt;                // filtered longitudinal acceleration
+    double  a_lat_filt;                 // filtered lateral acceleration
+    double  rollover_lat_accel;         // lateral acceleration for rollover
+    double  roll;                       // roll angle from pose
+    double  pitch;                      // pitch angle from pose
+    int32_t have_pose;                  // indicator that pose is good
+    int64_t pose_delay_us;              // time interval from pose creation to 
+                                        // pose processed in controller
+    int64_t time_since_last_mp_us;      // time interval from last received 
+                                        // motion plan
+}
+

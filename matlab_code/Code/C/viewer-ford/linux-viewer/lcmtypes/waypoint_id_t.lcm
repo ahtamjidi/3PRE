@@ -1,0 +1,9 @@
+package lcmtypes;
+
+struct waypoint_id_t
+{
+    // from the notation of RNDF
+    int16_t segment;    // segment or zone ID
+    int16_t lane;       // lane ID
+    int16_t point;      // point ID
+}

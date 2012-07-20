@@ -1,0 +1,22 @@
+package lcmtypes;
+
+struct gridmap_tile_t
+{
+	int64_t   utime;
+
+	// constant for any given batch of tiles
+	int64_t   generation;
+
+	// x0, y0 are minimum x,y coordinates
+	// always a multiple of meters_per_pixel
+	double    x0, y0;
+	double    meters_per_pixel;
+
+	// dimensions of tile in pixels
+	int32_t   width, height; 
+
+	// number of data bytes
+	int32_t   datalen;
+	byte      data[datalen];
+
+}

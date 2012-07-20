@@ -1,0 +1,46 @@
+package lcmtypes;
+
+// state:
+// The states are documented in the adu source code.
+
+// button status: logical OR of our input buttons
+// The button codes are documented in the adu source code
+
+struct adu_status_t
+{
+    int64_t utime;
+	
+    lcmtypes.adu_state_enum_t state; 
+
+    // Logical OR of button states
+    // 1: Run
+    // 2: Pause
+    // 4: Manual Override
+    // 8: E-STOP
+    int32_t button_status;
+
+    // Shifting:  In order to shift, the controller should stop the vehicle,
+    // depress the brake, set the "shift_target" value of adu_command_t and
+    // then set "shift_enable" of adu_command_t to true.  The shift will then
+    // begin, as indicated by "shift_target" and "shift_in_progress" being
+    // set in this structure.  Then, the controller should wait for
+    // "shift_in_progress" to become false AND for "shift_current"
+    // to be equal to "shift_target".  Then, it can set "shift_enable" to
+    // false, release the brake, and continue driving.
+    //
+    // If "shift_in_progress" goes to false, but "shift_target" is _not_
+    // equal to "shift_current", an error has occured.  Retry by starting
+    // the process from the begining.
+
+    // The last commanded position of the shifter
+    lcmtypes.shift_enum_t shift_target;
+    // The current position of the shifter
+    lcmtypes.shift_enum_t shift_current;
+
+    // True when a shift command is being acted upon and the shift has not
+    // reached its target yet.
+    boolean shift_in_progress;
+
+    int32_t gas_mv, gas_goal_mv, gas_rate;
+    int32_t steer_mv, steer_goal_mv, steer_rate;
+}

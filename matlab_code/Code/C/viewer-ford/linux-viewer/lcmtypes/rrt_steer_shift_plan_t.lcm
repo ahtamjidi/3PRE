@@ -1,0 +1,12 @@
+package lcmtypes;
+
+struct rrt_steer_shift_plan_t {
+    int64_t utime;
+
+    int32_t plan_id;        // plan id. Different plans should have different 
+                            // plan ids. Plan ids should be unique for at least 
+                            // the interval required to shift gears.
+    boolean is_forward;     // drive direction
+    double  steer_angle;    // steer angle to achieve
+}
+

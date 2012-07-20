@@ -1,0 +1,44 @@
+package lcmtypes;
+
+// The center of the bounding box is pos.
+//
+// The bounding box's dimensions are described for a axis-aligned
+// rectangle prior to rotation. E.g., for the corners of the
+// rectangle, construct the transformation matrix:
+//
+//      [ cos(theta) -sin(theta) pos[0] ]
+// P  = [ sin(theta)  cos(theta) pos[1] ]
+//      [     0           0         1   ]
+//
+// And transform the points:
+//
+// [ +/- size[0]/2 ] 
+// [ +/- size[1]/2 ]
+// [       1       ]
+
+
+struct track_t
+{
+	int64_t id;     // vehicle identity.
+			// identities may change when vehicle
+			// is far away, or when it stops/starts moving.
+
+	double pos[2];  // center in local frame
+
+	double size[2]; // dimensions of bounding box
+	boolean size_good;  // if size_good, then we're observing
+	    		// the dimensions of the car. Otherwise,
+			// we're hallucinating it (e.g., radar).
+
+	double theta;   // orientation of bounding box
+	       		// (not the heading!)
+
+
+	double vel[2];  // velocity
+
+	// confidence 0: no confidence; only for visualizing.
+	//            1: possibly
+	//            2: probably
+	//            3: definitely
+	int32_t confidence;
+}

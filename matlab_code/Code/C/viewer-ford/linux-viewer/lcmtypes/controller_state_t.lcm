@@ -1,0 +1,21 @@
+package lcmtypes;
+
+enum controller_state_enum_t {
+    DISABLED = 0, 
+    ERROR, 
+    WAIT_MOTION_PLAN, 
+    SHIFTING, 
+    EXECUTING, 
+    SAFETY_OVERRIDE
+}
+
+struct controller_state_t {
+    int64_t utime;
+
+    lcmtypes.controller_state_enum_t state;
+    int32_t cur_plan_id;        // plan id of last motion plan, -1 if none
+    double  integral;           // last value of integral state
+    double  last_steer_cmd;     // last commanded (tire) steer angle
+    double  last_v_cmd;         // last reference speed
+}
+

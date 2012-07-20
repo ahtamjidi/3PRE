@@ -1,0 +1,9 @@
+package lcmtypes;
+
+struct adu_secondary_t
+{
+    int32_t signals; // none = 0, left = 1, right = 2, hazards = 3
+
+    boolean headlights;
+    boolean horn;
+}

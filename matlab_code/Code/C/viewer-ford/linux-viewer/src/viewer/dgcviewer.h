@@ -1,0 +1,6 @@
+#ifndef _DGCVIEWER_H
+#define _DGCVIEWER_H
+
+enum { RENDER_MODE_LOCAL, RENDER_MODE_GLOBAL };
+
+#endif

@@ -1,0 +1,11 @@
+package lcmtypes;
+
+struct rgbvelodyne_t
+{
+	int64_t utime;
+
+	int32_t datalen;
+	byte data[datalen];
+
+	byte rgb[datalen][3]; //rgb value per shot
+}

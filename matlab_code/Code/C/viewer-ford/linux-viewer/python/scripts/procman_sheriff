@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+
+import procman
+
+procman.sheriff_gtk.run ()

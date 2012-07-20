@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - corrcoef_partitioned_api.c </TITLE>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT="#1122aa" ONLOAD="if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window);}">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///home/amirhossein/Desktop/Current_Work/april_2012/SR4000/EKF_monoSLAM_1pRANSAC/matlab_code/mex_files/CorePar_Ver1/codegen/mex/corrcoef_partitioned/corrcoef_partitioned_api.c" TARGET="rtwreport_document_frame">/home/amirhossein/Desktop/Current_Work/april_2012/SR4000/EKF_monoSLAM_1pRANSAC/matlab_code/mex_files/CorePar_Ver1/codegen/mex/corrcoef_partitioned/corrcoef_partitioned_api.c</A></H4>
+<PRE id="RTWcode">
+<FONT COLOR="#888888"><I>    1   </I></FONT><FONT COLOR="#117755"><I>/*</I></FONT>
+<FONT COLOR="#888888"><I>    2   </I></FONT><FONT COLOR="#117755"><I> * corrcoef_partitioned_api.c</I></FONT>
+<FONT COLOR="#888888"><I>    3   </I></FONT><FONT COLOR="#117755"><I> *</I></FONT>
+<FONT COLOR="#888888"><I>    4   </I></FONT><FONT COLOR="#117755"><I> * Code generation for function 'corrcoef_partitioned_api'</I></FONT>
+<FONT COLOR="#888888"><I>    5   </I></FONT><FONT COLOR="#117755"><I> *</I></FONT>
+<FONT COLOR="#888888"><I>    6   </I></FONT><FONT COLOR="#117755"><I> * C source code generated on: Wed May  2 02:54:19 2012</I></FONT>
+<FONT COLOR="#888888"><I>    7   </I></FONT><FONT COLOR="#117755"><I> *</I></FONT>
+<FONT COLOR="#888888"><I>    8   </I></FONT><FONT COLOR="#117755"><I> */</I></FONT>
+<FONT COLOR="#888888"><I>    9   </I></FONT>
+<FONT COLOR="#888888"><I>   10   </I></FONT><FONT COLOR="#117755"><I>/* Include files */</I></FONT>
+<FONT COLOR="#888888"><I>   11   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;rt_nonfinite.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   12   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;corrcoef_partitioned.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   13   </I></FONT><FONT COLOR="#992211">#</FONT><FONT COLOR="#992211"><B>include</B></FONT> <FONT COLOR="#992211">&quot;corrcoef_partitioned_api.h&quot;</FONT>
+<FONT COLOR="#888888"><I>   14   </I></FONT>
+<FONT COLOR="#888888"><I>   15   </I></FONT><FONT COLOR="#117755"><I>/* Type Definitions */</I></FONT>
+<FONT COLOR="#888888"><I>   16   </I></FONT>
+<FONT COLOR="#888888"><I>   17   </I></FONT><FONT COLOR="#117755"><I>/* Named Constants */</I></FONT>
+<FONT COLOR="#888888"><I>   18   </I></FONT>
+<FONT COLOR="#888888"><I>   19   </I></FONT><FONT COLOR="#117755"><I>/* Variable Declarations */</I></FONT>
+<FONT COLOR="#888888"><I>   20   </I></FONT>
+<FONT COLOR="#888888"><I>   21   </I></FONT><FONT COLOR="#117755"><I>/* Variable Definitions */</I></FONT>
+<FONT COLOR="#888888"><I>   22   </I></FONT>
+<FONT COLOR="#888888"><I>   23   </I></FONT><FONT COLOR="#117755"><I>/* Function Declarations */</I></FONT>
+<FONT COLOR="#888888"><I>   24   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>void</B></FONT> <A HREF="corrcoef_partitioned_api_c.html#fcn_b_emlrt_marshallIn" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emlrt_marshallIn');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">b_emlrt_marshallIn</FONT></A>(<FONT COLOR="#112266"><B>const</B></FONT> mxArray *u, <FONT COLOR="#112266"><B>const</B></FONT> emlrtMsgIdentifier *parentId, real_T y_data[1100000], int32_T y_sizes[2]);
+<FONT COLOR="#888888"><I>   25   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>void</B></FONT> <A HREF="corrcoef_partitioned_api_c.html#fcn_c_emlrt_marshallIn" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_c_emlrt_marshallIn');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">c_emlrt_marshallIn</FONT></A>(<FONT COLOR="#112266"><B>const</B></FONT> mxArray *src, <FONT COLOR="#112266"><B>const</B></FONT> emlrtMsgIdentifier *msgId, real_T ret_data[1100000], int32_T ret_sizes[2]);
+<FONT COLOR="#888888"><I>   26   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>void</B></FONT> <A HREF="corrcoef_partitioned_api_c.html#fcn_emlrt_marshallIn" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallIn');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">emlrt_marshallIn</FONT></A>(<FONT COLOR="#112266"><B>const</B></FONT> mxArray *patches_for_correlation, <FONT COLOR="#112266"><B>const</B></FONT> char_T *identifier, real_T y_data[1100000], int32_T y_sizes[2]);
+<FONT COLOR="#888888"><I>   27   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>const</B></FONT> mxArray *<A HREF="corrcoef_partitioned_api_c.html#fcn_emlrt_marshallOut" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">emlrt_marshallOut</FONT></A>(real_T u_data[5000], int32_T u_sizes[1]);
+<FONT COLOR="#888888"><I>   28   </I></FONT>
+<FONT COLOR="#888888"><I>   29   </I></FONT><FONT COLOR="#117755"><I>/* Function Definitions */</I></FONT>
+<FONT COLOR="#888888"><I>   30   </I></FONT>
+<FONT COLOR="#888888"><I>   31   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>void</B></FONT> <A NAME="fcn_b_emlrt_marshallIn">b_emlrt_marshallIn</A>(<FONT COLOR="#112266"><B>const</B></FONT> mxArray *u, <FONT COLOR="#112266"><B>const</B></FONT> emlrtMsgIdentifier *parentId, real_T y_data[1100000], int32_T y_sizes[2])
+<FONT COLOR="#888888"><I>   32   </I></FONT><B>{</B>
+<FONT COLOR="#888888"><I>   33   </I></FONT>    <A HREF="corrcoef_partitioned_api_c.html#fcn_c_emlrt_marshallIn" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_c_emlrt_marshallIn');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">c_emlrt_marshallIn</FONT></A>(emlrtAlias(u), parentId, y_data, y_sizes);
+<FONT COLOR="#888888"><I>   34   </I></FONT>    emlrtDestroyArray(&amp;u);
+<FONT COLOR="#888888"><I>   35   </I></FONT><B>}</B>
+<FONT COLOR="#888888"><I>   36   </I></FONT>
+<FONT COLOR="#888888"><I>   37   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>void</B></FONT> <A NAME="fcn_c_emlrt_marshallIn">c_emlrt_marshallIn</A>(<FONT COLOR="#112266"><B>const</B></FONT> mxArray *src, <FONT COLOR="#112266"><B>const</B></FONT> emlrtMsgIdentifier *msgId, real_T ret_data[1100000], int32_T ret_sizes[2])
+<FONT COLOR="#888888"><I>   38   </I></FONT><B>{</B>
+<FONT COLOR="#888888"><I>   39   </I></FONT>    int32_T i2;
+<FONT COLOR="#888888"><I>   40   </I></FONT>    int32_T iv0[2];
+<FONT COLOR="#888888"><I>   41   </I></FONT>    boolean_T bv0[2];
+<FONT COLOR="#888888"><I>   42   </I></FONT>    <FONT COLOR="#112266"><B>for</B></FONT> (i2 = 0; i2 &lt; 2; i2++) <B>{</B>
+<FONT COLOR="#888888"><I>   43   </I></FONT>        iv0[i2] = 220 + 4780 * i2;
+<FONT COLOR="#888888"><I>   44   </I></FONT>        bv0[i2] = TRUE;
+<FONT COLOR="#888888"><I>   45   </I></FONT>    <B>}</B>
+<FONT COLOR="#888888"><I>   46   </I></FONT>    emlrtCheckVsBuiltInR2011a(msgId, src, <FONT COLOR="#1122ff">&quot;double&quot;</FONT>, FALSE, 2U, iv0, bv0, ret_sizes);
+<FONT COLOR="#888888"><I>   47   </I></FONT>    emlrtImportArrayR2008b(src, ret_data, 8);
+<FONT COLOR="#888888"><I>   48   </I></FONT>    emlrtDestroyArray(&amp;src);
+<FONT COLOR="#888888"><I>   49   </I></FONT><B>}</B>
+<FONT COLOR="#888888"><I>   50   </I></FONT>
+<FONT COLOR="#888888"><I>   51   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>void</B></FONT> <A NAME="fcn_emlrt_marshallIn">emlrt_marshallIn</A>(<FONT COLOR="#112266"><B>const</B></FONT> mxArray *patches_for_correlation, <FONT COLOR="#112266"><B>const</B></FONT> char_T *identifier, real_T y_data[1100000], int32_T y_sizes[2])
+<FONT COLOR="#888888"><I>   52   </I></FONT><B>{</B>
+<FONT COLOR="#888888"><I>   53   </I></FONT>    emlrtMsgIdentifier thisId;
+<FONT COLOR="#888888"><I>   54   </I></FONT>    thisId.fIdentifier = identifier;
+<FONT COLOR="#888888"><I>   55   </I></FONT>    thisId.fParent = NULL;
+<FONT COLOR="#888888"><I>   56   </I></FONT>    <A HREF="corrcoef_partitioned_api_c.html#fcn_b_emlrt_marshallIn" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emlrt_marshallIn');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">b_emlrt_marshallIn</FONT></A>(emlrtAlias(patches_for_correlation), &amp;thisId, y_data, y_sizes);
+<FONT COLOR="#888888"><I>   57   </I></FONT>    emlrtDestroyArray(&amp;patches_for_correlation);
+<FONT COLOR="#888888"><I>   58   </I></FONT><B>}</B>
+<FONT COLOR="#888888"><I>   59   </I></FONT>
+<FONT COLOR="#888888"><I>   60   </I></FONT><FONT COLOR="#112266"><B>static</B></FONT> <FONT COLOR="#112266"><B>const</B></FONT> mxArray *<A NAME="fcn_emlrt_marshallOut">emlrt_marshallOut</A>(real_T u_data[5000], int32_T u_sizes[1])
+<FONT COLOR="#888888"><I>   61   </I></FONT><B>{</B>
+<FONT COLOR="#888888"><I>   62   </I></FONT>    <FONT COLOR="#112266"><B>const</B></FONT> mxArray *y;
+<FONT COLOR="#888888"><I>   63   </I></FONT>    <FONT COLOR="#112266"><B>const</B></FONT> mxArray *m0;
+<FONT COLOR="#888888"><I>   64   </I></FONT>    real_T (*pData)[];
+<FONT COLOR="#888888"><I>   65   </I></FONT>    int32_T i1;
+<FONT COLOR="#888888"><I>   66   </I></FONT>    int32_T i;
+<FONT COLOR="#888888"><I>   67   </I></FONT>    y = NULL;
+<FONT COLOR="#888888"><I>   68   </I></FONT>    m0 = mxCreateNumericArray(1, (int32_T *)u_sizes, mxDOUBLE_CLASS, mxREAL);
+<FONT COLOR="#888888"><I>   69   </I></FONT>    pData = (real_T (*)[])mxGetPr(m0);
+<FONT COLOR="#888888"><I>   70   </I></FONT>    i1 = 0;
+<FONT COLOR="#888888"><I>   71   </I></FONT>    <FONT COLOR="#112266"><B>for</B></FONT> (i = 0; i &lt; u_sizes[0]; i++) <B>{</B>
+<FONT COLOR="#888888"><I>   72   </I></FONT>        (*pData)[i1] = u_data[i];
+<FONT COLOR="#888888"><I>   73   </I></FONT>        i1++;
+<FONT COLOR="#888888"><I>   74   </I></FONT>    <B>}</B>
+<FONT COLOR="#888888"><I>   75   </I></FONT>    emlrtAssign(&amp;y, m0);
+<FONT COLOR="#888888"><I>   76   </I></FONT>    <FONT COLOR="#112266"><B>return</B></FONT> y;
+<FONT COLOR="#888888"><I>   77   </I></FONT><B>}</B>
+<FONT COLOR="#888888"><I>   78   </I></FONT>
+<FONT COLOR="#888888"><I>   79   </I></FONT><FONT COLOR="#112266"><B>void</B></FONT> <A NAME="fcn_corrcoef_partitioned_api">corrcoef_partitioned_api</A>(<A HREF="corrcoef_partitioned_types_h.html#type_corrcoef_partitionedStackData" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_corrcoef_partitionedStackData')" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">corrcoef_partitionedStackData</FONT></A> *SD, <FONT COLOR="#112266"><B>const</B></FONT> mxArray * <FONT COLOR="#112266"><B>const</B></FONT> prhs[1], <FONT COLOR="#112266"><B>const</B></FONT> mxArray *plhs[1])
+<FONT COLOR="#888888"><I>   80   </I></FONT><B>{</B>
+<FONT COLOR="#888888"><I>   81   </I></FONT>    int32_T patches_for_correlation_sizes[2];
+<FONT COLOR="#888888"><I>   82   </I></FONT>    int32_T correlation_matrix_sizes;
+<FONT COLOR="#888888"><I>   83   </I></FONT>    real_T correlation_matrix_data[5000];
+<FONT COLOR="#888888"><I>   84   </I></FONT>    <FONT COLOR="#117755"><I>/* Marshall function inputs */</I></FONT>
+<FONT COLOR="#888888"><I>   85   </I></FONT>    <A HREF="corrcoef_partitioned_api_c.html#fcn_emlrt_marshallIn" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallIn');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">emlrt_marshallIn</FONT></A>(emlrtAliasP(prhs[0]), <FONT COLOR="#1122ff">&quot;patches_for_correlation&quot;</FONT>, SD-&gt;f2.patches_for_correlation_data, patches_for_correlation_sizes);
+<FONT COLOR="#888888"><I>   86   </I></FONT>    <FONT COLOR="#117755"><I>/* Invoke the target function */</I></FONT>
+<FONT COLOR="#888888"><I>   87   </I></FONT>    <A HREF="corrcoef_partitioned_c.html#fcn_corrcoef_partitioned" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_corrcoef_partitioned');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">corrcoef_partitioned</FONT></A>(SD, SD-&gt;f2.patches_for_correlation_data, patches_for_correlation_sizes, correlation_matrix_data, &amp;correlation_matrix_sizes);
+<FONT COLOR="#888888"><I>   88   </I></FONT>    <FONT COLOR="#117755"><I>/* Marshall function outputs */</I></FONT>
+<FONT COLOR="#888888"><I>   89   </I></FONT>    plhs[0] = <A HREF="corrcoef_partitioned_api_c.html#fcn_emlrt_marshallOut" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');"  TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">emlrt_marshallOut</FONT></A>(correlation_matrix_data, *(int32_T (*)[1])&amp;correlation_matrix_sizes);
+<FONT COLOR="#888888"><I>   90   </I></FONT><B>}</B>
+<FONT COLOR="#888888"><I>   91   </I></FONT><FONT COLOR="#117755"><I>/* End of code generation (corrcoef_partitioned_api.c) */</I></FONT>
+<FONT COLOR="#888888"><I>   92   </I></FONT></PRE>
+</TD></TR></TABLE>
+</P>
+</BODY>
+</HTML>

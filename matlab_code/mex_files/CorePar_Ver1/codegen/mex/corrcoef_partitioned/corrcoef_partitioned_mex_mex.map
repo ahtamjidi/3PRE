@@ -1,0 +1,9 @@
+MEX {
+	global:
+		mexFunction;
+		corrcoef_partitioned;
+		corrcoef_partitioned_initialize;
+		corrcoef_partitioned_terminate;
+	local:
+		*;
+};

@@ -1,0 +1,8 @@
+package lcmtypes;
+
+struct car_temps_t {
+    int64_t utime;
+    double cabin_temp;
+    double generator_temp;
+}
+

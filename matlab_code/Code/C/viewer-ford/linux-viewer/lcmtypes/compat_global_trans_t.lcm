@@ -1,0 +1,28 @@
+package lcmtypes;
+
+struct compat_global_trans_t
+{
+    /* utime for which this state is computed */
+    int64_t utime;
+
+    /* The GPS coordinate at which we "pin down" the global-to-local
+     * transformation.  Any linearization is performed around this point.
+     * lat-lon is in degrees.  elev in meters. */
+    double gps_origin_lat;
+    double gps_origin_lon;
+    double gps_origin_elev;
+
+    /* Radius (meters) of the Earth at the above point */
+    double radius;
+
+    /* Point in the local frame (meters) that corresponds to the GPS point
+     * above */
+    double local_gps_origin[3];
+
+    /* Estimated angle (radians) between the local frame's y-axis and
+     * true north. */
+    float heading_diff;
+
+    /* Variance of heading_diff */
+    float heading_diff_var;
+}

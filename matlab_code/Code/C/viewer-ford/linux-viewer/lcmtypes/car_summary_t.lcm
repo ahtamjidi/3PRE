@@ -1,0 +1,15 @@
+package lcmtypes;
+
+struct car_summary_t {
+    int64_t utime;
+
+    float       engine_rpm;
+    float       pedal_gas;              // [0,1]
+    float       pedal_brake;            // [0,1]
+    lcmtypes.shift_enum_t shifter;
+    int8_t      gear;
+    float       wheelspeeds[4];         // FL, FR, RL, RR
+    float       fuel_level;             // gallons
+    float       battery_voltage;
+    float       steering_wheel_angle;   // radians
+}

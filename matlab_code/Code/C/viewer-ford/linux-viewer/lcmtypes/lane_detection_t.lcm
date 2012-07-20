@@ -1,0 +1,8 @@
+package lcmtypes;
+
+struct lane_detection_t {
+    int64_t utime;
+    int32_t num_splines;
+    lcmtypes.spline_t splines[num_splines];
+    double scores[num_splines];
+}

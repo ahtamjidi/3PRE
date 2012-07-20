@@ -1,0 +1,16 @@
+package lcmtypes;
+
+struct lcplot_data_t
+{
+	string name;   // what is the name of this particular datum?
+
+	double color[3];    
+
+	string style;        // ".", "o", "+", "^", "o:", "--" etc. (mostly not implemented)
+	float  line_width;   // set to zero for scatter plot. >0 implies a line.
+	float  point_size;   // set to zero for line plot. >0 imples points.
+
+	int32_t num_points;
+	double  x[num_points];
+	double  y[num_points];
+}
