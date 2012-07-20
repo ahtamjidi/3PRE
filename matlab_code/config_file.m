@@ -16,7 +16,7 @@ myCONFIG.PATH.DATA_FOLDER = 'C:\Users\lab\Desktop\AMIR\ICRA\bus\';
 myCONFIG.PATH.AVI_OUTPUT = [myCONFIG.PATH.DATA_FOLDER,'/aviOutput/result11.avi'];
 myCONFIG.IDX.idxCam = 1;
 myCONFIG.STEP.START = 1;
-myCONFIG.STEP.END =932;%%data_file_counting(myCONFIG.PATH.DATA_FOLDER,'d1');
+myCONFIG.STEP.END =data_file_counting(myCONFIG.PATH.DATA_FOLDER,'d1');
 myCONFIG.FLAGS.GICP_CAM_ID = -1; %%% -1 means whole laser data is fed into GICP
 myCONFIG.FLAGS.EST_METHOD = '1PRE'; %%% ( 1PRE = 1Point RANSAC | PURE_EKF = pure ekf. no feature management)
 myCONFIG.FLAGS.MOTION_INPUT='RANSAC'; %%% 'GT' == ground truth -- 'RANSAC' == RANSAC
